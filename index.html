@@ -3,22 +3,154 @@
 <head>
   <meta charset="UTF-8">
   <title>GhostDrift Mathematical Institute</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GhostDrift数理研究所 – 素数計算OSと有限閉包（Finite Closure）に基づく数学・OS・工学デモのポータル。">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      margin: 0;
+      padding: 24px;
+      background: #f7f7f9;
+      color: #222;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 24px 24px 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+    h1 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.8rem;
+    }
+    .subtitle {
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    section {
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      border-left: 4px solid #333;
+      padding-left: 8px;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    a {
+      color: #0056b3;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .link-title {
+      font-weight: 600;
+    }
+    .link-desc {
+      display: block;
+      font-size: 0.9rem;
+      color: #555;
+      margin-left: 4px;
+    }
+  </style>
 </head>
 <body>
-  <h1>GhostDrift Mathematical Institute</h1>
+  <div class="container">
+    <header>
+      <h1>GhostDrift Mathematical Institute</h1>
+      <p class="subtitle">
+        素数計算OS（Prime OS）と Yukawa / Finite Closure（有限閉包）を核に、<br>
+        「有限回の計算で完結する数学OS」と、その応用デモをまとめたポータルです。
+      </p>
+    </header>
 
-  <h2>▼ Prime OS（素数計算OS）</h2>
-  <p><a href="https://ghostdrifttheory.github.io/prime-counter-demo/">Prime Counter Demo（JP）</a></p>
-  <p><a href="https://ghostdrifttheory.github.io/prime-counter-demo-en/">Prime Counter Demo（EN）</a></p>
+    <main>
+      <section>
+        <h2>▼ Prime OS（素数計算OS）</h2>
+        <ul>
+          <li>
+            <a href="https://ghostdrifttheory.github.io/prime-counter-demo/" class="link-title">
+              Prime Counter Demo（JP）
+            </a>
+            <span class="link-desc">
+              素数計算OSの日本語版デモ。π(x) を有限閉包で計算し、ナイーブカウンタとの比較や明示公式の内訳を確認できます。
+            </span>
+          </li>
+          <li>
+            <a href="https://ghostdrifttheory.github.io/prime-counter-demo-en/" class="link-title">
+              Prime Counter Demo（EN）
+            </a>
+            <span class="link-desc">
+              英語UI版の素数計算OSデモ。海外向けの紹介やフィードバック用に利用できます。
+            </span>
+          </li>
+        </ul>
+      </section>
 
-  <h2>▼ 研究マップ</h2>
-  <p><a href="https://ghostdrifttheory.github.io/prime-os-research-map-JP/">Prime OS Research Map（JP）</a></p>
-  <p><a href="https://ghostdrifttheory.github.io/prime-os-research-map/">Prime OS Research Map（EN）</a></p>
+      <section>
+        <h2>▼ 研究マップ（Prime OS 系）</h2>
+        <ul>
+          <li>
+            <a href="https://ghostdrifttheory.github.io/prime-os-research-map-JP/" class="link-title">
+              Prime OS Research Map（JP）
+            </a>
+            <span class="link-desc">
+              素数計算OSまわりの2020–2025年の研究・アルゴリズム・検証手法を俯瞰した日本語マップです。
+            </span>
+          </li>
+          <li>
+            <a href="https://ghostdrifttheory.github.io/prime-os-research-map/" class="link-title">
+              Prime OS Research Map（EN）
+            </a>
+            <span class="link-desc">
+              同内容の英語版マップ。国際的な議論・レビュー向けの入口として利用します。
+            </span>
+          </li>
+        </ul>
+      </section>
 
-  <h2>▼ Yukawa / Finite Closure</h2>
-  <p><a href="https://ghostdrifttheory.github.io/yukawa-finite-field-closure-demo-JP/">Yukawa Finite Closure Demo（JP）</a></p>
+      <section>
+        <h2>▼ Yukawa / Finite Closure</h2>
+        <ul>
+          <li>
+            <a href="https://ghostdrifttheory.github.io/yukawa-finite-field-closure-demo-JP/" class="link-title">
+              Yukawa Finite Closure Demo（JP）
+            </a>
+            <span class="link-desc">
+              Yukawa カーネルと有限閉包の仕組みを可視化したデモ。無限の「尾」を有限個の有理数バウンドに閉じる直感を掴むための実験場です。
+            </span>
+          </li>
+        </ul>
+      </section>
 
-  <h2>▼ その他デモ</h2>
-  <p><a href="https://ghostdrifttheory.github.io/Okakiyoshi-Emotive-OS-Demo-JP/">岡潔エモーティブOSデモ（JP）</a></p>
+      <section>
+        <h2>▼ その他デモ</h2>
+        <ul>
+          <li>
+            <a href="https://ghostdrifttheory.github.io/Okakiyoshi-Emotive-OS-Demo-JP/" class="link-title">
+              岡潔エモーティブOSデモ（JP）
+            </a>
+            <span class="link-desc">
+              岡潔の思想をモチーフにした「エモーティブOS」デモ。数理OSと情緒・意味エネルギーの接続を探る実験的コンテンツです。
+            </span>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
 </body>
 </html>
