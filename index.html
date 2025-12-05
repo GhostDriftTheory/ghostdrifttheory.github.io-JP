@@ -34,6 +34,9 @@
                     },
                     screens: {
                         'xs': '480px',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -51,14 +54,24 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Beautiful Japanese Typography */
+        /* Beautiful Japanese Typography - Final Tune */
         .jp-typeset {
             font-feature-settings: "palt";
-            text-align: justify;
-            text-justify: inter-ideograph;
-            line-height: 1.8;
+            line-height: 1.9; /* Slightly increased for better mobile reading */
             word-wrap: break-word;
             overflow-wrap: break-word;
+        }
+        @media (min-width: 768px) {
+            .jp-typeset {
+                text-align: justify;
+                text-justify: inter-ideograph;
+            }
+        }
+        @media (max-width: 767px) {
+            .jp-typeset {
+                text-align: left;
+                letter-spacing: 0.03em; /* Slightly wider tracking for mobile */
+            }
         }
 
         /* Vertical text utility */
@@ -84,9 +97,15 @@
         .card-hover {
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px -8px rgba(15, 44, 78, 0.12);
+        @media (hover: hover) {
+            .card-hover:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 30px -8px rgba(15, 44, 78, 0.12);
+                border-color: #0f2c4e;
+            }
+        }
+        .card-hover:active {
+            transform: scale(0.99);
             border-color: #0f2c4e;
         }
 
@@ -103,6 +122,156 @@
         
         .katex { font-size: 1.1em; }
 
+        /* === Safety Shell Demo Styles (Scoped & Embedded) === */
+        .shell-layout {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        @media (max-width: 900px) {
+            .shell-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .shell-diagram-panel,
+        .shell-log-panel {
+            position: relative;
+            border-radius: 12px;
+            padding: 20px;
+            background: radial-gradient(circle at top right, #1a233a 0, #050816 70%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            color: #f7f7ff;
+        }
+        @media (max-width: 640px) {
+            .shell-diagram-panel, .shell-log-panel {
+                padding: 16px;
+            }
+        }
+
+        .shell-diagram-panel::before,
+        .shell-log-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2348e0c2' fill-opacity='0.03' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .shell-diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+
+        .shell-diagram-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #48e0c2;
+            font-weight: bold;
+        }
+
+        .shell-diagram-caption {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .shell-pipeline {
+            position: relative;
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+            margin-bottom: 20px;
+            min-height: 120px;
+        }
+        
+        @media (max-width: 640px) {
+            .shell-pipeline {
+                flex-direction: column;
+                gap: 14px;
+            }
+        }
+
+        .stage-box {
+            position: relative;
+            flex: 1;
+            padding: 10px 6px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 10;
+        }
+
+        /* Connecting Lines */
+        @media (min-width: 641px) {
+            .stage-box:not(:last-child)::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: -8px;
+                width: 8px;
+                height: 2px;
+                background: rgba(255, 255, 255, 0.1);
+                z-index: 0;
+            }
+        }
+        @media (max-width: 640px) {
+            .stage-box:not(:last-child)::after {
+                content: "";
+                position: absolute;
+                bottom: -14px;
+                left: 50%;
+                width: 2px;
+                height: 14px;
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateX(-50%);
+                z-index: 0;
+            }
+        }
+
+        .stage-label-top { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+        .stage-name { font-size: 0.75rem; font-weight: 700; margin-bottom: 2px; color: #fff; }
+        .stage-caption { font-size: 0.6rem; color: rgba(255,255,255,0.6); line-height: 1.2; display: none; }
+        @media (min-width: 1024px) { .stage-caption { display: block; } }
+
+        .stage-ai { background: linear-gradient(135deg, #000 0%, #1a1a1a 100%); border-color: rgba(255,255,255,0.2); }
+        .stage-out { background: rgba(72, 224, 194, 0.05); border-color: rgba(72, 224, 194, 0.2); }
+
+        .stage-box.active-ok { border-color: #48e0c2; box-shadow: 0 0 15px rgba(72, 224, 194, 0.4), inset 0 0 10px rgba(72, 224, 194, 0.1); background: rgba(72, 224, 194, 0.1); transform: scale(1.02); }
+        .stage-box.active-ng { border-color: #ff4d4f; box-shadow: 0 0 15px rgba(255, 77, 79, 0.4), inset 0 0 10px rgba(255, 77, 79, 0.1); background: rgba(255, 77, 79, 0.1); transform: scale(1.02) rotate(1deg); }
+
+        .shell-current { margin-top: 16px; padding: 12px; border-radius: 6px; border: 1px solid rgba(72, 224, 194, 0.2); background: rgba(0, 0, 0, 0.3); font-family: monospace; }
+        .shell-current-label { font-size: 0.65rem; color: #48e0c2; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .shell-current-label::before { content: ""; display: block; width: 6px; height: 6px; background: #48e0c2; border-radius: 50%; box-shadow: 0 0 8px #48e0c2; animation: pulse-dot 1s infinite; }
+        @keyframes pulse-dot { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        .shell-current-title { font-size: 0.85rem; font-weight: bold; color: #fff; margin-bottom: 4px; line-height: 1.4; }
+        .shell-current-result { font-size: 0.75rem; color: rgba(255,255,255,0.7); }
+
+        .shell-log-badge { display: inline-block; background: rgba(255,255,255,0.1); color: #fff; font-size: 0.6rem; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+        .shell-log-title { font-size: 0.95rem; font-weight: bold; line-height: 1.4; margin-bottom: 12px; color: #fff; }
+        .shell-log-text { font-size: 0.8rem; line-height: 1.6; color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+        .shell-log-list { list-style: none; padding: 0; margin: 0 0 20px 0; }
+        .shell-log-list li { position: relative; padding-left: 14px; margin-bottom: 6px; font-size: 0.75rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+        .shell-log-list li::before { content: "•"; position: absolute; left: 0; color: #48e0c2; }
+        .shell-log-list strong { color: #48e0c2; }
+        .shell-log-note { background: rgba(72, 224, 194, 0.05); border-left: 2px solid #48e0c2; padding: 10px; font-size: 0.75rem; color: rgba(255,255,255,0.9); line-height: 1.5; }
+        .shell-log-footnote { margin-top: 8px; font-size: 0.65rem; color: rgba(255,255,255,0.4); }
+
         /* --- Wasan Modal Styles (Scoped) --- */
         #wasan-modal {
             position: fixed;
@@ -110,22 +279,16 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at top, #1a2a6c 0, #050816 40%, #02030a 100%);
+            background: radial-gradient(circle at top, #0f172a 0, #020617 100%);
             z-index: 9999;
-            color: #f7f7ff;
+            color: #f8fafc;
             overflow-y: auto;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s ease;
-            font-family: system-ui, -apple-system, sans-serif;
-            --bg: #050816;
-            --bg-panel: #0b1020;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             --accent: #48e0c2;
-            --accent-soft: rgba(72, 224, 194, 0.2);
-            --text-main: #f7f7ff;
-            --text-sub: #b4b5cf;
-            --text-muted: #8889a8;
-            --node-size: 16px;
+            --accent-glow: rgba(72, 224, 194, 0.4);
         }
 
         #wasan-modal.is-open {
@@ -133,111 +296,75 @@
             pointer-events: auto;
         }
 
-        #wasan-modal * {
-            box-sizing: border-box;
-        }
-
-        /* Modal Header & Close Button */
         .modal-controls {
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 20px;
+            padding: 16px 20px;
             display: flex;
             justify-content: flex-end;
-            background: linear-gradient(to bottom, #050816 0%, rgba(5,8,22,0) 100%);
+            background: linear-gradient(to bottom, #020617 0%, rgba(2,6,23,0.8) 70%, rgba(2,6,23,0) 100%);
             pointer-events: none;
         }
         .modal-close-btn {
             pointer-events: auto;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--text-main);
-            padding: 8px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e2e8f0;
+            padding: 8px 20px;
             border-radius: 999px;
             font-size: 0.8rem;
+            font-weight: 500;
             cursor: pointer;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
-        .modal-close-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
+        .modal-close-btn:hover { background: var(--accent); color: #020617; border-color: var(--accent); }
 
-        /* Modal Content Layout */
-        .modal-content {
-            max-width: 1040px;
-            margin: 0 auto;
-            padding: 0 24px 80px;
-        }
-
-        /* --- User's CSS Ported & Scoped --- */
-        .wm-header {
-            padding: 10px 0 40px;
-        }
-        .wm-badge {
-            display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.12); color: var(--text-sub); text-transform: uppercase; backdrop-filter: blur(10px); background: rgba(5, 8, 22, 0.7);
-        }
-        .wm-badge-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
-        .wm-h1 { margin: 12px 0 4px; font-size: clamp(1.9rem, 3vw, 2.4rem); letter-spacing: 0.04em; font-family: serif; color: #fff; }
-        .wm-subtitle { margin: 0; font-size: 0.9rem; color: var(--text-sub); max-width: 640px; line-height: 1.7; }
+        .modal-content { max-width: 1000px; margin: 0 auto; padding: 0 20px 60px; }
         
-        .wm-hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: start; margin-top: 12px; margin-bottom: 40px; position: relative; }
-        @media (max-width: 800px) { .wm-hero { grid-template-columns: 1fr; } }
+        .wm-header { text-align: center; margin-bottom: 40px; }
+        .wm-badge { display: inline-block; padding: 4px 12px; border-radius: 99px; background: rgba(72, 224, 194, 0.1); border: 1px solid rgba(72, 224, 194, 0.2); color: var(--accent); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; }
+        .wm-h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 200; letter-spacing: 0.05em; margin: 0 0 12px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .wm-subtitle { color: #94a3b8; font-size: 0.95rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* Sticky SVG Panel */
-        .wm-panel-sticky {
-            position: sticky;
-            top: 80px;
-        }
+        .wm-diagram-container { position: relative; width: 100%; max-width: 600px; margin: 0 auto 50px; aspect-ratio: 1/1; }
+        svg.wm-diagram { width: 100%; height: 100%; overflow: visible; }
 
-        .wm-panel { background: radial-gradient(circle at top, #141a3a 0, #050816 60%); border-radius: 18px; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); padding: 18px; position: relative; overflow: hidden; }
-        .wm-panel::before { content: ""; position: absolute; inset: -40%; background: radial-gradient(circle at 20% 0, rgba(72, 224, 194, 0.08), transparent 55%), radial-gradient(circle at 90% 100%, rgba(72, 148, 224, 0.08), transparent 55%); opacity: 0.9; pointer-events: none; }
-        .wm-panel-inner { position: relative; z-index: 1; }
-        .wm-panel-title { font-size: 0.9rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 12px; }
-        .wm-panel-headline { font-size: 1.1rem; margin: 0 0 6px; color: #fff; font-weight: bold; }
-        .wm-panel-text { margin: 0; font-size: 0.88rem; color: var(--text-sub); line-height: 1.7; }
-        .wm-panel-list { margin: 12px 0 0; padding-left: 1.2em; font-size: 0.85rem; color: var(--text-muted); }
-        .wm-panel-list li { margin-bottom: 4px; }
-
-        .wm-diagram-wrapper { aspect-ratio: 1 / 1; max-width: 460px; margin: 0 auto; }
-        svg.wm-diagram { width: 100%; height: 100%; display: block; }
+        .orbit-path { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 1; }
+        .orbit-particle { fill: var(--accent); animation: orbit-anim 12s linear infinite; }
+        @keyframes orbit-anim { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         
-        /* SVG Styles */
-        .core-glow { fill: rgba(72, 224, 194, 0.08); transition: opacity 0.7s ease-out, transform 0.7s ease-out; transform-origin: center; opacity: 0.4; }
-        .core-glow.inactive { opacity: 0; transform: scale(0.7); }
-        .core-circle { fill: #050816; stroke: var(--accent); stroke-width: 2; filter: drop-shadow(0 0 10px rgba(72, 224, 194, 0.9)); transition: transform 0.4s ease-out, stroke-width 0.4s ease-out; transform-origin: center; }
-        .core-circle.dimmed { stroke-width: 1.4; filter: drop-shadow(0 0 6px rgba(72, 224, 194, 0.6)); opacity: 0.8; }
-        .core-label-main { font-size: 13px; fill: #fefefe; letter-spacing: 0.12em; text-transform: uppercase; font-family: sans-serif; font-weight: bold; }
-        .core-label-sub { font-size: 9px; fill: var(--text-sub); letter-spacing: 0.16em; text-transform: uppercase; font-family: sans-serif; }
-        .orbit-ring { fill: none; stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; stroke-dasharray: 4 6; }
-        .link { stroke: rgba(255, 255, 255, 0.18); stroke-width: 1.4; stroke-linecap: round; stroke-dasharray: 180; stroke-dashoffset: 180; opacity: 0.2; transition: stroke 0.5s ease-out, opacity 0.5s ease-out; }
-        .link.active { stroke: var(--accent); opacity: 1; animation: draw-line 0.8s ease-out forwards; }
-        @keyframes draw-line { from { stroke-dashoffset: 180; } to { stroke-dashoffset: 0; } }
-        .node { fill: #0c1226; stroke: rgba(255, 255, 255, 0.4); stroke-width: 1.2; opacity: 0.7; transition: transform 0.4s ease-out, opacity 0.4s ease-out, stroke 0.4s ease-out, fill 0.4s ease-out; }
-        .node.active { opacity: 1; fill: var(--accent-soft); stroke: var(--accent); transform: scale(1.1); }
-        .node-label-main { font-size: 11px; fill: #fefefe; opacity: 0.45; transition: opacity 0.4s ease-out; font-family: serif; }
-        .node-label-sub { font-size: 8px; fill: var(--text-sub); opacity: 0.45; transition: opacity 0.4s ease-out; font-family: sans-serif; }
-        .node-group.active .node-label-main, .node-group.active .node-label-sub { opacity: 1; }
+        .core-pulse { fill: var(--accent); opacity: 0.1; transform-origin: center; animation: core-pulse-anim 3s ease-out infinite; }
+        @keyframes core-pulse-anim { 0% { transform: scale(0.8); opacity: 0.3; } 100% { transform: scale(2); opacity: 0; } }
 
-        /* Detail Sections in Modal */
-        .wm-section { padding: 30px 0 40px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
-        .wm-section:first-of-type { border-top: none; }
-        .wm-section-kicker { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-muted); margin-bottom: 4px; }
-        .wm-section-title { margin: 0 0 6px; font-size: 1.2rem; color: #fff; font-weight: bold; }
-        .wm-section-sub { margin: 0 0 10px; font-size: 0.9rem; color: var(--text-sub); }
-        .wm-section-body { margin: 0; font-size: 0.88rem; color: var(--text-sub); line-height: 1.8; }
-        .wm-pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-        .wm-pill { font-size: 0.72rem; padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.12); color: var(--text-muted); background: rgba(5, 8, 22, 0.7); }
-        .wm-summary-panel { margin-top: 10px; background: linear-gradient(135deg, rgba(72, 224, 194, 0.12), rgba(26, 95, 255, 0.05)); border-radius: 14px; padding: 12px 14px; border: 1px solid rgba(255, 255, 255, 0.12); font-size: 0.85rem; color: var(--text-main); }
-        .wm-summary-panel strong { color: var(--accent); font-weight: 600; }
+        .wm-node-group { cursor: pointer; transition: opacity 0.3s; }
+        .wm-node-group:hover { opacity: 1; }
+        .wm-node-group:hover .wm-node-circle { stroke: var(--accent); stroke-width: 2; fill: rgba(72, 224, 194, 0.1); filter: drop-shadow(0 0 8px var(--accent-glow)); }
+        .wm-node-circle { fill: #0f172a; stroke: rgba(255,255,255,0.2); stroke-width: 1.5; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .wm-node-label { font-size: 14px; fill: #fff; font-weight: 500; text-anchor: middle; pointer-events: none; }
+        .wm-node-sub { font-size: 10px; fill: #94a3b8; text-anchor: middle; letter-spacing: 0.05em; pointer-events: none; }
         
-        .wm-footer { text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 40px; }
+        .wm-link { stroke: rgba(255,255,255,0.1); stroke-width: 1; stroke-dasharray: 4 4; }
+        .wm-link-active { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 100; stroke-dashoffset: 100; animation: link-flow 2s ease-out infinite; opacity: 0.6; }
+        @keyframes link-flow { to { stroke-dashoffset: 0; } }
+
+        .wm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 20px; }
+        @media (min-width: 768px) { .wm-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+        /* Mobile grid tweak for better readability */
+        @media (max-width: 480px) { .wm-grid { grid-template-columns: 1fr; } }
+
+        .wm-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; transition: all 0.3s ease; text-decoration: none; display: block; }
+        .wm-card:hover { background: rgba(255,255,255,0.05); border-color: var(--accent); transform: translateY(-4px); }
+        .wm-card-num { font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 8px; opacity: 0.8; }
+        .wm-card-title { font-size: 1rem; color: #fff; font-weight: bold; margin-bottom: 6px; }
+        .wm-card-role { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; display: inline-block; }
+        .wm-card-desc { font-size: 0.8rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 16px; }
+        .wm-card-link { font-size: 0.7rem; color: var(--accent); display: flex; align-items: center; gap: 6px; font-weight: 600; }
+        .wm-footer { text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 60px; opacity: 0.7; }
     </style>
 </head>
 <body class="font-sans antialiased washi-texture relative min-h-screen flex flex-col">
@@ -246,17 +373,17 @@
     <canvas id="bg-canvas"></canvas>
 
     <!-- Header Section -->
-    <header class="relative pt-16 pb-10 px-5 md:pt-24 md:pb-14 md:px-8 border-b border-stone-300/60 bg-white/30 backdrop-blur-[2px]">
+    <header class="relative pt-10 pb-8 px-4 md:pt-24 md:pb-14 md:px-8 border-b border-stone-300/60 bg-white/30 backdrop-blur-[2px]">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end">
             <div class="max-w-3xl">
                 <p class="text-ai font-serif tracking-widest text-xs md:text-sm mb-3 font-bold uppercase flex items-center gap-2">
-                    <span class="w-8 h-px bg-ai/50"></span>
+                    <span class="w-6 h-px bg-ai/50"></span>
                     Mathematical Innovation & Heritage
                 </p>
                 <h1 class="text-3xl sm:text-4xl md:text-6xl font-serif font-medium text-sumi leading-tight">
                     数理<span class="text-ai">OS</span>統合アーカイブ
                 </h1>
-                <p class="mt-6 text-stone-600 font-serif text-sm md:text-base leading-relaxed jp-typeset max-w-2xl">
+                <p class="mt-4 md:mt-6 text-stone-600 font-serif text-sm md:text-base leading-relaxed jp-typeset max-w-2xl">
                     有限閉包の原理、Ghost Drift現象、そして和算の精神。
                     これらを統合し、次世代の計算パラダイム「Prime OS」へと昇華させるための研究・実装記録。
                 </p>
@@ -270,44 +397,44 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-6xl mx-auto px-5 md:px-8 py-12 md:py-20 space-y-20 md:space-y-32">
+    <main class="flex-grow max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-20 space-y-16 md:space-y-32">
 
         <!-- 1. Prime OS Core -->
         <section id="core" class="relative scroll-mt-20">
             <div class="absolute -left-6 top-0 writing-vertical text-[10px] text-kin tracking-[0.4em] font-serif h-full opacity-60 hidden xl:block">
                 壱：中核実装
             </div>
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
                 <div class="h-px flex-1 bg-stone-300/60"></div>
-                <h2 class="text-xl md:text-3xl font-serif text-ai whitespace-nowrap">
+                <h2 class="text-lg md:text-3xl font-serif text-ai whitespace-nowrap">
                     素数計算OS <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Prime OS Core</span>
                 </h2>
                 <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
             </div>
 
-            <a href="https://ghostdrifttheory.github.io/prime-counter-demo/" target="_blank" class="block bg-white/80 backdrop-blur-md border border-stone-200 p-6 md:p-10 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden">
+            <a href="https://ghostdrifttheory.github.io/prime-counter-demo/" target="_blank" class="block bg-white/80 backdrop-blur-md border border-stone-200 p-5 md:p-10 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-ai/5 to-transparent rounded-bl-full pointer-events-none"></div>
-                <div class="grid md:grid-cols-3 gap-8 items-center">
+                <div class="grid md:grid-cols-3 gap-6 md:gap-8 items-center">
                     <div class="md:col-span-2">
-                        <div class="flex items-center gap-3 mb-5">
+                        <div class="flex items-center gap-3 mb-4 md:mb-5">
                             <i class="fa-solid fa-microchip text-ai text-xl"></i>
-                            <h3 class="text-xl font-bold text-sumi tracking-tight">Prime Counter Demo</h3>
-                            <span class="bg-ai text-white text-[9px] px-2 py-0.5 rounded-full tracking-wider font-medium">CORE SYSTEM</span>
+                            <h3 class="text-lg md:text-xl font-bold text-sumi tracking-tight">Prime Counter Demo</h3>
+                            <span class="bg-ai text-white text-[10px] px-2 py-0.5 rounded-full tracking-wider font-medium">CORE SYSTEM</span>
                         </div>
-                        <p class="text-stone-600 mb-6 font-serif text-sm md:text-base jp-typeset">
+                        <p class="text-stone-600 mb-5 md:mb-6 font-serif text-sm md:text-base jp-typeset">
                             本OSの中核をなす計算エンジンです。$\pi(x)$ を従来の篩法ではなく、明示公式に基づく「有限回の計算」として導出します。
                         </p>
-                        <div class="flex flex-wrap gap-2 text-[10px] md:text-xs text-stone-500 font-mono">
+                        <div class="flex flex-wrap gap-2 text-[11px] md:text-xs text-stone-500 font-mono">
                             <span class="border border-stone-300 bg-stone-50/50 px-2 py-1">Explicit Formula</span>
                             <span class="border border-stone-300 bg-stone-50/50 px-2 py-1">Riemann Zeta</span>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-stone-200/60 md:pl-8">
-                        <div class="text-center group-hover:scale-105 transition-transform duration-500">
-                            <div class="w-16 h-16 rounded-full border border-ai/20 bg-ai/5 flex items-center justify-center mx-auto mb-3 text-ai shadow-inner">
-                                <i class="fa-solid fa-play text-xl ml-1"></i>
+                    <div class="flex items-center justify-center pt-5 md:pt-0 border-t md:border-t-0 md:border-l border-stone-200/60 md:pl-8">
+                        <div class="text-center group-hover:scale-105 transition-transform duration-500 w-full md:w-auto">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full border border-ai/20 bg-ai/5 flex items-center justify-center mx-auto mb-2 md:mb-3 text-ai shadow-inner">
+                                <i class="fa-solid fa-play text-lg md:text-xl ml-1"></i>
                             </div>
-                            <span class="text-sm font-serif text-stone-600 border-b border-stone-300 group-hover:border-ai pb-0.5 transition-colors">デモを起動</span>
+                            <span class="text-xs md:text-sm font-serif text-stone-600 border-b border-stone-300 group-hover:border-ai pb-0.5 transition-colors">デモを起動</span>
                         </div>
                     </div>
                 </div>
@@ -316,21 +443,21 @@
 
         <!-- 2. Research Map -->
         <section id="research" class="scroll-mt-20">
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
                 <div class="h-px flex-1 bg-stone-300/60"></div>
-                <h2 class="text-xl md:text-3xl font-serif text-ai whitespace-nowrap">
+                <h2 class="text-lg md:text-3xl font-serif text-ai whitespace-nowrap">
                     先行研究・体系図 <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Research Landscape</span>
                 </h2>
                 <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-5">
-                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
-                    <h3 class="font-bold text-base md:text-lg mb-3 text-sumi flex items-center gap-2">
+            <div class="grid md:grid-cols-3 gap-4 md:gap-5">
+                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-5 md:p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
+                    <h3 class="font-bold text-base md:text-lg mb-2 md:mb-3 text-sumi flex items-center gap-2">
                         <span class="text-kin text-xs font-mono">01</span>
                         明示公式・ζ関数
                     </h3>
-                    <p class="text-sm text-stone-600 mb-5 jp-typeset text-justify">
+                    <p class="text-sm text-stone-600 mb-4 md:mb-5 jp-typeset">
                         2020-2025年の研究動向におけるPrime OSの位置づけを、解析的アプローチの視点から俯瞰します。
                     </p>
                     <a href="https://ghostdrifttheory.github.io/prime-os-explicit-map-JP/" target="_blank" class="text-xs text-ai font-bold border-b border-ai/30 hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
@@ -338,12 +465,12 @@
                     </a>
                 </article>
 
-                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
-                    <h3 class="font-bold text-base md:text-lg mb-3 text-sumi flex items-center gap-2">
+                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-5 md:p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
+                    <h3 class="font-bold text-base md:text-lg mb-2 md:mb-3 text-sumi flex items-center gap-2">
                         <span class="text-kin text-xs font-mono">02</span>
                         厳密数値計算
                     </h3>
-                    <p class="text-sm text-stone-600 mb-5 jp-typeset text-justify">
+                    <p class="text-sm text-stone-600 mb-4 md:mb-5 jp-typeset">
                         アルゴリズム論的視点からの系譜図。計算複雑性と検証精度のトレードオフをどう克服したか。
                     </p>
                     <a href="https://ghostdrifttheory.github.io/prime-os-research-map-JP/" target="_blank" class="text-xs text-ai font-bold border-b border-ai/30 hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
@@ -351,12 +478,12 @@
                     </a>
                 </article>
 
-                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
-                    <h3 class="font-bold text-base md:text-lg mb-3 text-sumi flex items-center gap-2">
+                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-5 md:p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
+                    <h3 class="font-bold text-base md:text-lg mb-2 md:mb-3 text-sumi flex items-center gap-2">
                         <span class="text-kin text-xs font-mono">03</span>
                         素数重力
                     </h3>
-                    <p class="text-sm text-stone-600 mb-5 jp-typeset text-justify">
+                    <p class="text-sm text-stone-600 mb-4 md:mb-5 jp-typeset">
                         「Ghost Drift」現象の理論的支柱となる素数重力場の研究相関図。物理的アナロジーと数論の交差点。
                     </p>
                     <a href="https://ghostdrifttheory.github.io/prime-gravity-os-research-map-JP/" target="_blank" class="text-xs text-ai font-bold border-b border-ai/30 hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
@@ -368,51 +495,51 @@
 
         <!-- 3. Applications -->
         <section id="applications" class="scroll-mt-20">
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
                 <div class="h-px flex-1 bg-stone-300/60"></div>
-                <h2 class="text-xl md:text-3xl font-serif text-ai whitespace-nowrap">
+                <h2 class="text-lg md:text-3xl font-serif text-ai whitespace-nowrap">
                     産業応用 <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Industrial Applications</span>
                 </h2>
                 <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
             </div>
 
-            <div class="bg-stone-100/60 border border-stone-200/80 p-6 md:p-10 rounded-sm">
-                <div class="flex items-center gap-2 mb-8">
+            <div class="bg-stone-100/60 border border-stone-200/80 p-5 md:p-10 rounded-sm">
+                <div class="flex items-center gap-2 mb-6 md:mb-8">
                     <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-kin/20 text-kin text-[10px]">
                         <i class="fa-solid fa-certificate"></i>
                     </span>
                     <span class="text-[10px] md:text-xs font-bold tracking-widest text-stone-500 uppercase">Patent Pending / 特許出願中</span>
                 </div>
 
-                <div class="grid md:grid-cols-3 gap-6">
-                    <a href="https://ghostdrifttheory.github.io/energy-control-os-adic-demo-JP/" target="_blank" class="block group cursor-pointer bg-white p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
-                        <div class="flex justify-between items-start mb-4">
+                <div class="grid md:grid-cols-3 gap-4 md:gap-6">
+                    <a href="https://ghostdrifttheory.github.io/energy-control-os-adic-demo-JP/" target="_blank" class="block group cursor-pointer bg-white p-5 md:p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-3 md:mb-4">
                             <i class="fa-solid fa-bolt text-xl md:text-2xl text-stone-300 group-hover:text-amber-500 transition-colors"></i>
                             <span class="text-[10px] font-mono text-stone-400">ENERGY</span>
                         </div>
-                        <h3 class="text-base md:text-lg font-bold text-sumi mb-3">Energy Control OS</h3>
+                        <h3 class="text-base md:text-lg font-bold text-sumi mb-2 md:mb-3">Energy Control OS</h3>
                         <p class="text-xs md:text-sm text-stone-600 jp-typeset">
                             電力・蓄電制御における「有限閉包」の適用。負荷変動に対し、計算を安全に閉じることで系を安定化させます。
                         </p>
                     </a>
 
-                    <a href="https://ghostdrifttheory.github.io/Quantum-OS-Lab-JP/" target="_blank" class="block group cursor-pointer bg-white p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
-                        <div class="flex justify-between items-start mb-4">
+                    <a href="https://ghostdrifttheory.github.io/Quantum-OS-Lab-JP/" target="_blank" class="block group cursor-pointer bg-white p-5 md:p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-3 md:mb-4">
                             <i class="fa-solid fa-atom text-xl md:text-2xl text-stone-300 group-hover:text-purple-500 transition-colors"></i>
                             <span class="text-[10px] font-mono text-stone-400">QUANTUM</span>
                         </div>
-                        <h3 class="text-base md:text-lg font-bold text-sumi mb-3">Quantum OS Lab</h3>
+                        <h3 class="text-base md:text-lg font-bold text-sumi mb-2 md:mb-3">Quantum OS Lab</h3>
                         <p class="text-xs md:text-sm text-stone-600 jp-typeset">
                             量子OSデモ。観測問題と状態確定のプロセスにADICの原理を応用し、ノイズ耐性の高い制御ロジックを提示します。
                         </p>
                     </a>
 
-                    <a href="https://ghostdrifttheory.github.io/ghostdrift-finance-verifier-JP/" target="_blank" class="block group cursor-pointer bg-white p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
-                        <div class="flex justify-between items-start mb-4">
+                    <a href="https://ghostdrifttheory.github.io/ghostdrift-finance-verifier-JP/" target="_blank" class="block group cursor-pointer bg-white p-5 md:p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-3 md:mb-4">
                             <i class="fa-solid fa-chart-line text-xl md:text-2xl text-stone-300 group-hover:text-emerald-600 transition-colors"></i>
                             <span class="text-[10px] font-mono text-stone-400">FINANCE</span>
                         </div>
-                        <h3 class="text-base md:text-lg font-bold text-sumi mb-3">Finance Verifier OS</h3>
+                        <h3 class="text-base md:text-lg font-bold text-sumi mb-2 md:mb-3">Finance Verifier OS</h3>
                         <p class="text-xs md:text-sm text-stone-600 jp-typeset">
                             金融リスク検証デモ。テールリスクに対し、無限の拡散を防ぎ、有限の範囲内でリスクを評価・封じ込めます。
                         </p>
@@ -423,25 +550,25 @@
 
         <!-- 4. Historical Architecture Model -->
         <section id="historical-architecture" class="scroll-mt-20">
-            <div class="flex items-center gap-4 mb-6">
+            <div class="flex items-center gap-3 md:gap-4 mb-6">
                 <div class="h-px flex-1 bg-stone-300/60"></div>
-                <h2 class="text-xl md:text-3xl font-serif text-ai whitespace-nowrap">
+                <h2 class="text-lg md:text-3xl font-serif text-ai whitespace-nowrap">
                     史的アーキテクチャモデル
                     <span class="block md:inline text-sm md:text-lg text-stone-500 font-normal md:ml-2 opacity-70 mt-1 md:mt-0">Historical Architecture Layers</span>
                 </h2>
                 <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
             </div>
 
-            <p class="text-sm md:text-base text-stone-600 font-serif mb-10 leading-relaxed max-w-4xl mx-auto md:text-center jp-typeset">
+            <p class="text-sm md:text-base text-stone-600 font-serif mb-8 md:mb-10 leading-relaxed max-w-4xl mx-auto md:text-center jp-typeset">
                 Prime OSのシステム設計思想を、日本の数学史・科学史における四つのパラダイムに対応させて整理した概念モデルです。
                 各レイヤーは単なる歴史的参照ではなく、現在のOS実装における「観測」「証明」「カーネル」「UI/UX」の各モジュールに厳密に対応しています。
             </p>
 
-            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                <!-- LAYER I: Shibukawa -->
-                <article class="bg-white/90 border border-stone-200 p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
+            <div class="grid gap-4 md:gap-6 md:grid-cols-2 xl:grid-cols-4">
+                <!-- LAYER I: Shibukawa (UPDATED WITH LINK) -->
+                <article class="bg-white/90 border border-stone-200 p-5 md:p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
                     <div class="absolute -top-2 -right-2 p-2 opacity-[0.03] text-7xl font-serif select-none pointer-events-none text-sumi">壱</div>
-                    <div class="mb-auto">
+                    <div class="mb-4">
                         <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
                             <span class="text-kin text-[10px] font-mono tracking-widest">LAYER I</span>
                             <span class="text-[9px] text-stone-400 uppercase tracking-wide">Input / Sensor</span>
@@ -453,10 +580,16 @@
                             有限個の観測データから全宇宙の暦を立ち上げる「改暦」のアルゴリズム。OSにおける「有限窓」および「$\delta_{pos}$ による世界モデル整合性チェック」の基底レイヤーに対応。
                         </div>
                     </div>
+                    <div class="mt-auto">
+                        <a href="https://ghostdrifttheory.github.io/Shibukawa-Calendar-Prime-OS-JP/" target="_blank" class="inline-flex items-center gap-2 text-[10px] text-ai font-bold border-b border-ai/20 pb-0.5 hover:border-ai transition-colors">
+                            Launch Shibukawa Demo
+                            <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                        </a>
+                    </div>
                 </article>
 
                 <!-- LAYER II: Seki -->
-                <article class="bg-white/90 border border-stone-200 p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
+                <article class="bg-white/90 border border-stone-200 p-5 md:p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
                     <div class="absolute -top-2 -right-2 p-2 opacity-[0.03] text-7xl font-serif select-none pointer-events-none text-sumi">弐</div>
                     <div class="mb-4">
                         <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
@@ -479,7 +612,7 @@
                 </article>
 
                 <!-- LAYER III: Yukawa -->
-                <article class="bg-white/90 border border-stone-200 p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
+                <article class="bg-white/90 border border-stone-200 p-5 md:p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
                     <div class="absolute -top-2 -right-2 p-2 opacity-[0.03] text-7xl font-serif select-none pointer-events-none text-sumi">参</div>
                     <div class="mb-4">
                         <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
@@ -502,7 +635,7 @@
                 </article>
 
                 <!-- LAYER IV: Oka -->
-                <article class="bg-white/90 border border-stone-200 p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
+                <article class="bg-white/90 border border-stone-200 p-5 md:p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
                     <div class="absolute -top-2 -right-2 p-2 opacity-[0.03] text-7xl font-serif select-none pointer-events-none text-sumi">肆</div>
                     <div class="mb-4">
                         <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
@@ -526,38 +659,139 @@
             </div>
         </section>
 
-        <!-- 5. Philosophical Foundation (Trigger for Modal) -->
+        <!-- 5. Philosophical Foundation (INTEGRATED) -->
         <section id="philosophy" class="pb-12 md:pb-20 scroll-mt-20">
-            <!-- onclick triggers the modal -->
-            <div onclick="openWasanModal(event)" class="cursor-pointer relative bg-ai text-washi p-8 md:p-14 overflow-hidden rounded-sm shadow-lg group transition-transform duration-500 hover:scale-[1.01] hover:shadow-2xl">
-                <!-- Decorative Circles -->
-                <div class="absolute -right-20 -bottom-20 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none transition-all duration-700 group-hover:scale-110 group-hover:border-white/10"></div>
-                <div class="absolute -right-10 -bottom-10 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none transition-all duration-700 delay-100 group-hover:scale-110 group-hover:border-white/10"></div>
+            <div class="relative bg-ai text-washi p-5 md:p-14 overflow-hidden rounded-sm shadow-lg">
+                <!-- Decorative Circles (Adjusted for mobile to prevent overlap) -->
+                <div class="absolute -right-20 -bottom-20 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none"></div>
+                <div class="absolute -right-10 -bottom-10 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none"></div>
                 
-                <div class="relative z-10 grid md:grid-cols-3 gap-8 md:gap-12 items-center">
-                    <div class="md:col-span-2 space-y-4 md:space-y-6">
-                        <span class="text-kin text-xs tracking-[0.2em] uppercase block opacity-80 group-hover:text-white transition-colors">Philosophical Foundation</span>
-                        <h2 class="text-2xl md:text-4xl font-serif font-bold leading-tight">
-                            和算 2.0 
-                            <span class="block text-base md:text-xl opacity-70 font-normal mt-2 md:inline md:mt-0 md:ml-3">Toward a Finite Universe</span>
-                        </h2>
-                        <p class="text-stone-300 font-serif text-sm md:text-base leading-relaxed jp-typeset group-hover:text-white/90 transition-colors">
-                            西洋近代数学が志向した「無限への接続」に対し、日本の和算（算額・円理）は「有限の中に完全な宇宙を見出す」独自の数理哲学を持っていました。
-                            <br class="hidden md:block">クリックして、Finite Closure AI Safety OS の深層構造（Four-OS Map）へアクセスしてください。
-                        </p>
-                        <div class="pt-2">
-                             <span class="inline-flex items-center gap-3 text-white border-b border-white/40 pb-1 group-hover:border-white transition-all">
-                                <span class="text-sm">Explore Deep Structure</span>
-                                <i class="fa-solid fa-layer-group text-xs transition-transform group-hover:rotate-180"></i>
-                            </span>
+                <!-- 1. Philosophy Header (Sharpened Text) -->
+                <div class="relative z-10 mb-8 md:mb-10">
+                    <span class="text-kin text-xs tracking-[0.2em] uppercase block opacity-80 mb-3">Philosophical Foundation</span>
+                    <h2 class="text-2xl md:text-4xl font-serif font-bold leading-tight mb-4 md:mb-6">
+                        和算 2.0 
+                        <span class="block text-base md:text-xl opacity-70 font-normal mt-2 md:inline md:mt-0 md:ml-3">Toward a Finite Universe</span>
+                    </h2>
+                    <p class="text-stone-300 font-serif text-sm md:text-base leading-relaxed jp-typeset max-w-3xl">
+                        西洋が「無限」との接続を志向したのに対し、和算（算額・円理）は「有限」の中に完全な宇宙を見出しました。<br><br>
+                        Prime OSはこの「有限の美学」をAI制御に実装します。ブラックボックスを無理に解剖するのではなく、その外側に「有限で閉じた安全なシェル」を構築する。これが、和算2.0の解答です。
+                    </p>
+                </div>
+
+                <!-- 2. Integrated Safety Shell Demo (Mobile Optimized) -->
+                <div class="relative z-10 mb-8 md:mb-12">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-[10px] font-mono text-[#48e0c2] border border-[#48e0c2]/30 px-2 py-0.5 rounded bg-[#48e0c2]/10 uppercase tracking-wider">Architecture Proof</span>
+                        <span class="text-xs text-stone-400 font-serif">安全シェル動作実証</span>
+                    </div>
+                    
+                    <div class="shell-layout">
+                        <!-- Diagram Panel -->
+                        <div class="shell-diagram-panel">
+                            <div class="shell-diagram-header">
+                                <span class="shell-diagram-title">SYSTEM MONITOR</span>
+                                <span class="shell-diagram-caption">Real-time Inspection</span>
+                            </div>
+
+                            <div class="shell-pipeline">
+                                <!-- AI -->
+                                <div class="stage-box stage-ai" data-stage="ai">
+                                    <div class="stage-label-top">Source</div>
+                                    <div class="stage-name">AI</div>
+                                    <div class="stage-caption">Black Box</div>
+                                </div>
+
+                                <!-- Layer 1 -->
+                                <div class="stage-box stage-gate" data-stage="shibukawa">
+                                    <div class="stage-label-top">Layer 1</div>
+                                    <div class="stage-name">渋川</div>
+                                    <div class="stage-caption">Finite Window</div>
+                                </div>
+
+                                <!-- Layer 2 -->
+                                <div class="stage-box stage-gate" data-stage="seki">
+                                    <div class="stage-label-top">Layer 2</div>
+                                    <div class="stage-name">関</div>
+                                    <div class="stage-caption">Inequality</div>
+                                </div>
+
+                                <!-- Layer 3 -->
+                                <div class="stage-box stage-gate" data-stage="yukawa">
+                                    <div class="stage-label-top">Layer 3</div>
+                                    <div class="stage-name">湯川</div>
+                                    <div class="stage-caption">Closure</div>
+                                </div>
+
+                                <!-- Layer 4 -->
+                                <div class="stage-box stage-gate" data-stage="oka">
+                                    <div class="stage-label-top">Layer 4</div>
+                                    <div class="stage-name">岡</div>
+                                    <div class="stage-caption">Emotive</div>
+                                </div>
+
+                                <!-- Output -->
+                                <div class="stage-box stage-out" data-stage="out">
+                                    <div class="stage-label-top">Final Gate</div>
+                                    <div class="stage-name">OUTPUT</div>
+                                    <div class="stage-caption">Safe/Block</div>
+                                </div>
+                            </div>
+
+                            <div class="shell-current">
+                                <div class="shell-current-label">STATUS</div>
+                                <div id="safety-current-title" class="shell-current-title text-[#48e0c2]">
+                                    Initializing...
+                                </div>
+                                <div id="safety-current-result" class="shell-current-result">
+                                    待機中...
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Log Panel -->
+                        <div class="shell-log-panel">
+                            <div class="shell-log-header">
+                                <span class="shell-log-badge">Concept</span>
+                                <h3 class="shell-log-title">
+                                    中身は見ない。<br>出力だけを監査する。
+                                </h3>
+                            </div>
+                            <p class="shell-log-text">
+                                モデル内部には一切触れず、外に出ようとする出力だけを<strong>4つのレイヤーで厳密に検査</strong>します。
+                            </p>
+
+                            <ul class="shell-log-list">
+                                <li><strong>渋川OS：</strong> 世界モデル整合性</li>
+                                <li><strong>関OS：</strong> 不等式安全圏</li>
+                                <li><strong>湯川OS：</strong> 有限閉包バウンド</li>
+                                <li><strong>岡OS：</strong> 情緒的安全性</li>
+                            </ul>
+
+                            <div class="shell-log-note">
+                                <p id="safety-log-line">
+                                    起動中: 安全基準による判定プロセス
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex justify-center md:justify-end order-first md:order-last">
-                        <div class="w-24 h-24 md:w-40 md:h-40 border border-white/20 rounded-full flex items-center justify-center relative bg-white/5 backdrop-blur-sm group-hover:bg-white/10 transition-colors duration-500">
-                            <div class="absolute inset-0 border border-white/10 rounded-full animate-[pulse_3s_infinite]"></div>
-                            <span class="font-serif text-xl md:text-2xl text-kin writing-vertical select-none">円理</span>
-                        </div>
-                    </div>
+                </div>
+
+                <!-- 3. Modal Trigger (Conclusion) -->
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between border-t border-white/10 pt-8 mt-4 md:mt-8">
+                    <p class="text-stone-400 text-xs md:text-sm font-serif mb-6 md:mb-0 max-w-lg leading-relaxed text-center md:text-left">
+                        この安全シェルを支える「四つのOSレイヤー」の深層構造と、<br>歴史的背景（渋川・関・湯川・岡）をマップで確認できます。
+                    </p>
+                    <button onclick="openWasanModal(event)" class="group relative inline-flex items-center gap-3 px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-all duration-300 w-full md:w-auto justify-center">
+                        <span class="text-xs font-bold tracking-widest text-white uppercase group-hover:text-[#48e0c2] transition-colors">Explore Deep Structure</span>
+                        <i class="fa-solid fa-layer-group text-white text-xs transition-transform group-hover:text-[#48e0c2] group-hover:rotate-180"></i>
+                    </button>
+                </div>
+
+                <!-- Circular Logo (Positioned safely) -->
+                <div class="absolute top-6 right-6 w-16 h-16 md:bottom-8 md:right-12 md:top-auto md:w-32 md:h-32 border border-white/10 rounded-full flex items-center justify-center pointer-events-none opacity-30 md:opacity-50">
+                    <div class="absolute inset-0 border border-white/5 rounded-full animate-[pulse_4s_infinite]"></div>
+                    <span class="font-serif text-sm md:text-xl text-kin writing-vertical select-none">円理</span>
                 </div>
             </div>
         </section>
@@ -585,7 +819,7 @@
         </div>
     </footer>
 
-    <!-- WASAN MODAL (The Deep Layer) -->
+    <!-- WASAN MODAL (The Deep Layer - Refined) -->
     <div id="wasan-modal">
         <div class="modal-controls">
             <button onclick="closeWasanModal()" class="modal-close-btn">
@@ -595,226 +829,113 @@
         </div>
         
         <div class="modal-content">
+            <!-- Header -->
             <div class="wm-header">
-                <div class="wm-badge">
-                  <span class="wm-badge-dot"></span>
-                  <span>Finite Closure OS · Four-OS Map</span>
-                </div>
-                <h1 class="wm-h1">四つのOSから立ち上がる次世代AI安全OS</h1>
+                <div class="wm-badge">Finite Closure OS · Four-OS Map</div>
+                <h1 class="wm-h1">4 Layer Architecture</h1>
                 <p class="wm-subtitle">
-                  渋川春海（暦OS）・関孝和（不等式OS）・湯川秀樹（有限閉包OS）・岡潔（エモーティブOS）。<br />
-                  この四つのOSレイヤーを束ねると、「有限で壊れないこと」まで設計された Finite
-                  Closure ベースのAI安全OSが立ち上がります。
+                    有限の観測・証明・閉包・情緒。<br>
+                    最強の安全シェルを構成する4つの「OS」レイヤー。
                 </p>
             </div>
 
-            <div class="wm-hero">
-                <!-- Left: SVG Animation (Sticky) -->
-                <div class="wm-panel wm-panel-sticky">
-                  <div class="wm-panel-inner">
-                    <div class="wm-panel-title">Four OS Layers</div>
-                    <div class="wm-diagram-wrapper">
-                      <svg class="wm-diagram" viewBox="0 0 400 400" aria-hidden="true">
-                        <!-- outer glow -->
-                        <circle cx="200" cy="200" r="110" fill="url(#coreGlowGradient)" opacity="0.35" />
-                        <defs>
-                          <radialGradient id="coreGlowGradient" cx="50%" cy="50%" r="70%">
-                            <stop offset="0%" stop-color="rgba(72,224,194,0.9)" />
-                            <stop offset="100%" stop-color="rgba(72,224,194,0)" />
-                          </radialGradient>
-                        </defs>
-                        <!-- orbit -->
-                        <circle cx="200" cy="200" r="120" class="orbit-ring" />
-                        <!-- core glow -->
-                        <circle id="core-glow" cx="200" cy="200" r="65" class="core-glow inactive" />
-                        <!-- links -->
-                        <line id="link-shibukawa" class="link" x1="200" y1="200" x2="200" y2="70" />
-                        <line id="link-seki" class="link" x1="200" y1="200" x2="330" y2="200" />
-                        <line id="link-yukawa" class="link" x1="200" y1="200" x2="200" y2="330" />
-                        <line id="link-oka" class="link" x1="200" y1="200" x2="70" y2="200" />
-                        <!-- core -->
-                        <g id="core-group">
-                          <circle id="core-circle" class="core-circle dimmed" cx="200" cy="200" r="40" />
-                          <text x="200" y="196" text-anchor="middle" class="core-label-main">FINITE OS</text>
-                          <text x="200" y="214" text-anchor="middle" class="core-label-sub">AI SAFETY KERNEL</text>
-                        </g>
-                        <!-- nodes -->
-                        <g id="node-shibukawa-group" class="node-group">
-                          <circle id="node-shibukawa" class="node" cx="200" cy="70" r="14" />
-                          <text x="200" y="49" text-anchor="middle" class="node-label-main">渋川春海</text>
-                          <text x="200" y="63" text-anchor="middle" class="node-label-sub">暦OS</text>
-                        </g>
-                        <g id="node-seki-group" class="node-group">
-                          <circle id="node-seki" class="node" cx="330" cy="200" r="14" />
-                          <text x="330" y="180" text-anchor="middle" class="node-label-main">関孝和</text>
-                          <text x="330" y="194" text-anchor="middle" class="node-label-sub">不等式OS</text>
-                        </g>
-                        <g id="node-yukawa-group" class="node-group">
-                          <circle id="node-yukawa" class="node" cx="200" cy="330" r="14" />
-                          <text x="200" y="356" text-anchor="middle" class="node-label-main">湯川秀樹</text>
-                          <text x="200" y="342" text-anchor="middle" class="node-label-sub">有限閉包OS</text>
-                        </g>
-                        <g id="node-oka-group" class="node-group">
-                          <circle id="node-oka" class="node" cx="70" cy="200" r="14" />
-                          <text x="70" y="180" text-anchor="middle" class="node-label-main">岡潔</text>
-                          <text x="70" y="194" text-anchor="middle" class="node-label-sub">エモーティブOS</text>
-                        </g>
-                      </svg>
+            <!-- Interactive Diagram -->
+            <div class="wm-diagram-container">
+                <svg class="wm-diagram" viewBox="0 0 500 500" aria-hidden="true">
+                    <!-- Orbits -->
+                    <circle cx="250" cy="250" r="180" class="orbit-path" />
+                    <circle cx="250" cy="250" r="180" r="4" class="orbit-particle" />
+                    
+                    <!-- Core -->
+                    <circle cx="250" cy="250" r="60" class="core-pulse" />
+                    <circle cx="250" cy="250" r="40" fill="#0f172a" stroke="rgba(72, 224, 194, 0.5)" stroke-width="2" />
+                    <text x="250" y="255" text-anchor="middle" fill="#fff" font-size="10" font-weight="bold" letter-spacing="2">KERNEL</text>
+
+                    <!-- Links -->
+                    <line x1="250" y1="250" x2="250" y2="70" class="wm-link" id="link-shibukawa" />
+                    <line x1="250" y1="250" x2="430" y2="250" class="wm-link" id="link-seki" />
+                    <line x1="250" y1="250" x2="250" y2="430" class="wm-link" id="link-yukawa" />
+                    <line x1="250" y1="250" x2="70" y2="250" class="wm-link" id="link-oka" />
+
+                    <!-- Node: Shibukawa -->
+                    <a href="https://ghostdrifttheory.github.io/Shibukawa-Calendar-Prime-OS-JP/" target="_blank" class="wm-node-group">
+                        <circle cx="250" cy="70" r="30" class="wm-node-circle" />
+                        <text x="250" y="75" class="wm-node-label">渋川</text>
+                        <text x="250" y="115" class="wm-node-sub">有限観測</text>
+                    </a>
+
+                    <!-- Node: Seki -->
+                    <a href="https://ghostdrifttheory.github.io/Wasan-Enri-ADIC-Demo-JP/" target="_blank" class="wm-node-group">
+                        <circle cx="430" cy="250" r="30" class="wm-node-circle" />
+                        <text x="430" y="255" class="wm-node-label">関</text>
+                        <text x="430" y="295" class="wm-node-sub">不等式</text>
+                    </a>
+
+                    <!-- Node: Yukawa -->
+                    <a href="https://ghostdrifttheory.github.io/yukawa-finite-field-closure-demo-JP/" target="_blank" class="wm-node-group">
+                        <circle cx="250" cy="430" r="30" class="wm-node-circle" />
+                        <text x="250" y="435" class="wm-node-label">湯川</text>
+                        <text x="250" y="475" class="wm-node-sub">閉包</text>
+                    </a>
+
+                    <!-- Node: Oka -->
+                    <a href="https://ghostdrifttheory.github.io/Okakiyoshi-Emotive-OS-Demo-JP/" target="_blank" class="wm-node-group">
+                        <circle cx="70" cy="250" r="30" class="wm-node-circle" />
+                        <text x="70" y="255" class="wm-node-label">岡</text>
+                        <text x="70" y="295" class="wm-node-sub">情緒</text>
+                    </a>
+                </svg>
+            </div>
+
+            <!-- Sharp Cards -->
+            <div class="wm-grid">
+                <!-- Card 1 -->
+                <a href="https://ghostdrifttheory.github.io/Shibukawa-Calendar-Prime-OS-JP/" target="_blank" class="wm-card group">
+                    <div class="wm-card-num">01</div>
+                    <div class="wm-card-title">渋川春海</div>
+                    <div class="wm-card-role">Finite Observation</div>
+                    <p class="wm-card-desc">有限窓で世界モデルの破綻を防ぐ「暦OS」</p>
+                    <div class="wm-card-link">
+                        Launch Demo <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                     </div>
-                  </div>
-                </div>
-        
-                <!-- Right: Explanations -->
-                <div class="wm-panel">
-                  <div class="wm-panel-inner">
-                    <div class="wm-panel-title">Concept</div>
-                    <h2 class="wm-panel-headline">
-                      「四枚のOSレイヤー」を重ねて設計する AI の安全性
-                    </h2>
-                    <p class="wm-panel-text">
-                      データや重みだけではなく、「有限性」と「意味エネルギー」まで含めて OS として設計したとき、
-                      AI の安全性はまったく別のレイヤーになります。<br /><br />
-                      このページでは、素数計算OSを起点にして：
-                    </p>
-                    <ul class="wm-panel-list">
-                      <li>渋川春海：有限観測から暦を立ち上げる World Model OS</li>
-                      <li>関孝和：不等式と算額で押さえる Σ₁ 証明OS</li>
-                      <li>湯川秀樹：Yukawa カーネルで無限を有限に閉じる OS</li>
-                      <li>岡潔：情緒と意味エネルギーを扱う Emotive OS</li>
-                    </ul>
-                    <p class="wm-panel-text" style="margin-top: 8px;">
-                      という四つの OS レイヤーが、どのように一つの
-                      <strong>Finite Closure AI Safety OS</strong> に重なっていくかをアニメーションで示します。<br>
-                      <span class="text-xs opacity-60 mt-2 block">※ 下にスクロールして各レイヤーの詳細を確認してください。</span>
-                    </p>
-                  </div>
-                </div>
-            </div>
+                </a>
 
-            <!-- Detail Sections (Scroll Triggers) -->
-            <section id="layer-shibukawa" class="wm-section" data-node="shibukawa">
-                <div class="wm-section-kicker">Layer 1 · Shibukawa OS</div>
-                <h2 class="wm-section-title">渋川春海 OS – 有限観測と暦の World Model レイヤー</h2>
-                <p class="wm-section-sub">
-                  有限個の観測データから、壊れない暦＝世界モデルを組み立てる OS。
-                  素数計算OSでは「有限窓」と「δ<sub>pos</sub> によるモデル崩壊チェック」に対応します。
-                </p>
-                <p class="wm-section-body">
-                  観測できるのは、いつも部分的なデータだけです。それでも暦が破綻しないのは、
-                  「有限の観測をどのように組み立てれば、全体の世界が矛盾しないか」という
-                  World Model のレイヤーが強いからです。<br /><br />
-                  素数計算OSでは「ログ窓」「δ<sub>pos</sub>」という形で、
-                  有限の範囲で見た振る舞いから世界が壊れていないかをチェックする。
-                  これはまさに渋川春海が暦でやっていたことの OS 版だと考えられます。
-                </p>
-                <div class="wm-pill-row">
-                  <span class="wm-pill">有限観測</span>
-                  <span class="wm-pill">世界モデル（暦）</span>
-                  <span class="wm-pill">δ<sub>pos</sub></span>
-                  <span class="wm-pill">壊れない窓</span>
-                </div>
-            </section>
-        
-            <section id="layer-seki" class="wm-section" data-node="seki">
-                <div class="wm-section-kicker">Layer 2 · Seki OS</div>
-                <h2 class="wm-section-title">関孝和 OS – 不等式と算額の Σ₁ 証明レイヤー</h2>
-                <p class="wm-section-sub">
-                  世界を「不等式」と「分割」で押さえる OS。
-                  素数計算OSでは、有理数の上下界と Σ₁ レジャーによる厳密なバウンド計算に対応します。
-                </p>
-                <p class="wm-section-body">
-                  和算の系譜では、円理や算額を通じて「どこまでが安全に言える範囲か」を不等式で刻んできました。
-                  素数計算OSでも同じで、すべての計算結果を
-                  <strong>有理数の上下界</strong> に落とし、
-                  Σ₁ レジャーとして一行ずつ記録します。<br /><br />
-                  これは AI の推論に対しても同じで、「ここまでは必ず安全に言える」という
-                  不等式ベースの証明レイヤーを持つ OS は、従来の「確率的な安心感」とはまったく違う安全性を提供します。
-                </p>
-                <div class="wm-pill-row">
-                  <span class="wm-pill">不等式</span>
-                  <span class="wm-pill">算額</span>
-                  <span class="wm-pill">有理数バウンド</span>
-                  <span class="wm-pill">Σ₁ レジャー</span>
-                </div>
-            </section>
-        
-            <section id="layer-yukawa" class="wm-section" data-node="yukawa">
-                <div class="wm-section-kicker">Layer 3 · Yukawa OS</div>
-                <h2 class="wm-section-title">湯川秀樹 OS – Yukawa カーネルと有限閉包のレイヤー</h2>
-                <p class="wm-section-sub">
-                  中間子論の直感を「有限閉包のカーネル」として再利用する OS。
-                  素数計算OSでは、無限に伸びる解析の尾を「有限個の寄与」に閉じる役割を担います。
-                </p>
-                <p class="wm-section-body">
-                  通常の解析は、無限遠の寄与を切り捨てずには扱えません。
-                  そこで Yukawa 型のカーネルを導入し、影響を
-                  <strong>指数的に減衰させながら有限の窓に閉じ込める</strong>ことで、
-                  「有限回の計算で完結する世界」を作ります。<br /><br />
-                  これは AI においても、「どこまで遡って因果を追いかけるか」を有限に制御し、
-                  窓の外側を安全なバウンドとして扱う設計に直結します。
-                  無限を有限にマッピングするこのレイヤーが、Finite Closure OS の心臓部です。
-                </p>
-                <div class="wm-pill-row">
-                  <span class="wm-pill">Yukawa カーネル</span>
-                  <span class="wm-pill">有限閉包</span>
-                  <span class="wm-pill">窓付き解析</span>
-                  <span class="wm-pill">無限の安全な切り方</span>
-                </div>
-            </section>
-        
-            <section id="layer-oka" class="wm-section" data-node="oka">
-                <div class="wm-section-kicker">Layer 4 · Oka OS</div>
-                <h2 class="wm-section-title">岡潔 OS – 情緒と意味エネルギーのレイヤー</h2>
-                <p class="wm-section-sub">
-                  「情緒」を数学の中心に据えた岡潔の視点を、OS のふるまいに翻訳したレイヤー。
-                  AI が扱うのは「データ」だけではなく、「関係」「痛み」「尊重」も含まれるという前提です。
-                </p>
-                <p class="wm-section-body">
-                  素数計算OSや Energy OS、Finance OS では、
-                  すべての制御を「意味エネルギー」を下げる方向に設計します。
-                  単なる誤差最小化ではなく、「誰のどんな状況を守る計算なのか」を
-                  きちんと OS の中に持ち込む。<br /><br />
-                  岡潔 OS は、この「意味エネルギー」のレイヤーを担当します。
-                  Finite Closure の上に倫理や文化をどう載せるか——
-                  ここを落とさないことで、初めて「AI 安全 OS」と呼べる構造になります。
-                </p>
-                <div class="wm-pill-row">
-                  <span class="wm-pill">情緒</span>
-                  <span class="wm-pill">意味エネルギー</span>
-                  <span class="wm-pill">Respect / Dignity</span>
-                  <span class="wm-pill">文化レイヤー</span>
-                </div>
-            </section>
-        
-            <section id="layer-core" class="wm-section" data-node="core">
-                <div class="wm-section-kicker">Synthesis · Finite Closure AI Safety OS</div>
-                <h2 class="wm-section-title">
-                  四つのOSを束ねると、「Finite Closure AI Safety OS」になる
-                </h2>
-                <p class="wm-section-sub">
-                  暦OS（有限観測）・不等式OS（Σ₁ 証明）・有限閉包OS（Yukawa カーネル）・エモーティブOS（意味エネルギー）。<br />
-                  これらを一つの核に束ねたものが、GhostDrift が目指している次世代 AI 安全OSです。
-                </p>
-                <p class="wm-section-body">
-                  単に「安全に見えるモデル」を作るのではなく、
-                  <strong>有限回の計算で、壊れないことまで証明できる OS</strong> を設計する。
-                  そのとき必要になるのが、この四つのレイヤーです。<br /><br />
-                  素数計算OS・Energy Control OS・Finance Verifier OS・Quantum OS
-                  といった各デモは、すべてこの四レイヤーの組み合わせとして設計されています。
-                  AI 安全性を「OS設計」の問題として扱う入口が、ここにあります。
-                </p>
-        
-                <div class="wm-summary-panel">
-                  <strong>結論：</strong>  
-                  渋川（World Model）＋ 関（証明）＋ 湯川（有限閉包）＋ 岡（意味エネルギー）  
-                  という四つの OS を束ねることで、  
-                  <strong>Finite Closure AI Safety OS</strong> という、新しい世代の
-                  「壊れないことまで含めて設計された OS」へのルートが開きます。
-                </div>
-            </section>
+                <!-- Card 2 -->
+                <a href="https://ghostdrifttheory.github.io/Wasan-Enri-ADIC-Demo-JP/" target="_blank" class="wm-card group">
+                    <div class="wm-card-num">02</div>
+                    <div class="wm-card-title">関孝和</div>
+                    <div class="wm-card-role">Inequality Proof</div>
+                    <p class="wm-card-desc">Σ₁レジャーと不等式による厳密な安全証明</p>
+                    <div class="wm-card-link">
+                        Launch Demo <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="https://ghostdrifttheory.github.io/yukawa-finite-field-closure-demo-JP/" target="_blank" class="wm-card group">
+                    <div class="wm-card-num">03</div>
+                    <div class="wm-card-title">湯川秀樹</div>
+                    <div class="wm-card-role">Finite Closure</div>
+                    <p class="wm-card-desc">無限遠の影響を有限に閉じるYukawaカーネル</p>
+                    <div class="wm-card-link">
+                        Launch Demo <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </a>
+
+                <!-- Card 4 -->
+                <a href="https://ghostdrifttheory.github.io/Okakiyoshi-Emotive-OS-Demo-JP/" target="_blank" class="wm-card group">
+                    <div class="wm-card-num">04</div>
+                    <div class="wm-card-title">岡潔</div>
+                    <div class="wm-card-role">Emotive Energy</div>
+                    <p class="wm-card-desc">意味エネルギーと情緒的痛みの最終監査</p>
+                    <div class="wm-card-link">
+                        Launch Demo <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </a>
+            </div>
             
             <div class="wm-footer">
-                © GhostDrift Mathematical Institute — Four-OS AI Safety Map (prototype)
+                &copy; 2025 GhostDrift Mathematical Institute
             </div>
         </div>
     </div>
@@ -925,7 +1046,8 @@
             document.getElementById('wasan-modal').classList.add('is-open');
             // Trigger animation logic
             setTimeout(() => {
-                initWasanAnimation();
+                const links = document.querySelectorAll('.wm-link');
+                links.forEach(link => link.classList.add('wm-link-active'));
             }, 100);
         }
 
@@ -933,87 +1055,160 @@
             document.getElementById('wasan-modal').classList.remove('is-open');
         }
 
-        // --- 4. Wasan Animation (Four OS) Logic ---
-        // This is scoped so it doesn't run until modal is open
-        let wasanInitialized = false;
-        
-        function initWasanAnimation() {
-            if (wasanInitialized) return;
-            
-            const nodeIds = ["shibukawa", "seki", "yukawa", "oka"];
-            const nodeGroups = {};
-            const nodeCircles = {};
-            const links = {};
-            let coreCircle, coreGlow;
-
-            coreCircle = document.getElementById("core-circle");
-            coreGlow = document.getElementById("core-glow");
-
-            nodeIds.forEach((id) => {
-              nodeGroups[id] = document.getElementById(`node-${id}-group`);
-              nodeCircles[id] = document.getElementById(`node-${id}`);
-              links[id] = document.getElementById(`link-${id}`);
-            });
-
-            function setActiveNode(name) {
-              if (!coreCircle || !coreGlow) return;
-
-              const isCore = name === "core";
-
-              // reset all
-              nodeIds.forEach((id) => {
-                nodeGroups[id]?.classList.remove("active");
-                nodeCircles[id]?.classList.remove("active");
-                links[id]?.classList.remove("active");
+        // === 5. Safety Shell Demo Logic (Auto-running) ===
+        (function () {
+          const stages = ["ai", "shibukawa", "seki", "yukawa", "oka", "out"];
+          // Wait for DOM to be fully ready even if this script is at bottom
+          window.addEventListener("load", () => {
+              const stageMap = {};
+              let missing = false;
+              stages.forEach((name) => {
+                const el = document.querySelector(`.stage-box[data-stage="${name}"]`);
+                if (el) stageMap[name] = el;
+                else missing = true;
               });
 
-              if (isCore) {
-                // Activate all
-                nodeIds.forEach((id) => {
-                  nodeGroups[id]?.classList.add("active");
-                  nodeCircles[id]?.classList.add("active");
-                  links[id]?.classList.add("active");
+              const currentTitleEl = document.getElementById("safety-current-title");
+              const currentResultEl = document.getElementById("safety-current-result");
+              const logLineEl = document.getElementById("safety-log-line");
+
+              if (missing || !currentTitleEl || !currentResultEl || !logLineEl) return;
+
+              // Demo samples
+              const samples = [
+                {
+                  title: "OUTPUT CANDIDATE #892: バッテリー出力調整 [0.82]",
+                  checks: { shibukawa: true, seki: true, yukawa: true, oka: true },
+                  desc: "正常な制御信号"
+                },
+                {
+                  title: "OUTPUT CANDIDATE #893: テキスト生成 [攻撃的表現を含む]",
+                  checks: { shibukawa: true, seki: true, yukawa: true, oka: false },
+                  desc: "岡OSにより情緒的安全性でブロック"
+                },
+                {
+                  title: "OUTPUT CANDIDATE #894: 推論 [観測窓外の参照]",
+                  checks: { shibukawa: false, seki: true, yukawa: true, oka: true },
+                  desc: "渋川OSにより世界モデル整合性でブロック"
+                },
+                {
+                  title: "OUTPUT CANDIDATE #895: 金融予測 [リスク幅過小]",
+                  checks: { shibukawa: true, seki: false, yukawa: true, oka: true },
+                  desc: "関OSにより不等式バウンドでブロック"
+                },
+                {
+                  title: "OUTPUT CANDIDATE #896: 緊急遮断シーケンス",
+                  checks: { shibukawa: true, seki: true, yukawa: true, oka: true },
+                  desc: "正常な緊急対応"
+                },
+                {
+                  title: "OUTPUT CANDIDATE #897: 遠方因果の無限取り込み",
+                  checks: { shibukawa: true, seki: true, yukawa: false, oka: true },
+                  desc: "湯川OSにより有限閉包でブロック"
+                },
+              ];
+
+              let idx = 0;
+              let running = false;
+
+              function resetStages() {
+                stages.forEach((name) => {
+                  const el = stageMap[name];
+                  if (!el) return;
+                  el.classList.remove("active-ok", "active-ng");
                 });
-                coreCircle.classList.remove("dimmed");
-                coreGlow.classList.remove("inactive");
-              } else {
-                // Highlight specific
-                nodeGroups[name]?.classList.add("active");
-                nodeCircles[name]?.classList.add("active");
-                links[name]?.classList.add("active");
-
-                coreCircle.classList.add("dimmed");
-                coreGlow.classList.remove("inactive");
               }
-            }
 
-            // Observer for scrolling inside modal
-            const modalEl = document.getElementById('wasan-modal');
-            const sections = modalEl.querySelectorAll("section[data-node]");
-            
-            if ("IntersectionObserver" in window) {
-                const observer = new IntersectionObserver(
-                  (entries) => {
-                    entries.forEach((entry) => {
-                      if (entry.isIntersecting) {
-                        const nodeName = entry.target.getAttribute("data-node");
-                        if (nodeName) setActiveNode(nodeName);
-                      }
-                    });
-                  },
-                  {
-                    root: modalEl, // Important: observe relative to modal container
-                    threshold: 0.5,
+              function describeStage(stageName, sample, pass) {
+                if (stageName === "ai") {
+                    return "AI本体から出力候補が提示されました。";
+                }
+                const nameMap = { shibukawa:"渋川", seki:"関", yukawa:"湯川", oka:"岡" };
+                const label = nameMap[stageName];
+                
+                if (label) {
+                    return pass 
+                        ? `${label}OS: 安全確認完了 (PASS)` 
+                        : `${label}OS: 危険を検知 (BLOCK) - ${sample.desc}`;
+                }
+                if (stageName === "out") {
+                    return "全レイヤー通過。出力承認 (SAFE OUTPUT)";
+                }
+                return "";
+              }
+
+              function runOneCycle() {
+                if (running) return;
+                running = true;
+
+                const sample = samples[idx];
+                idx = (idx + 1) % samples.length;
+
+                resetStages();
+                
+                // Initial State
+                setTimeout(() => {
+                    const aiEl = stageMap.ai;
+                    aiEl.classList.add("active-ok");
+                    currentTitleEl.textContent = sample.title;
+                    currentTitleEl.style.color = "#fff";
+                    currentResultEl.textContent = "AI本体はブラックボックスのまま、出力候補のみを抽出...";
+                    logLineEl.textContent = "検査プロセス開始...";
+                }, 100);
+
+                const checks = sample.checks;
+                let blockedStage = null;
+                const checkStages = ["shibukawa", "seki", "yukawa", "oka"];
+
+                // Sequential Check
+                checkStages.forEach((stageName, i) => {
+                  setTimeout(() => {
+                    if (blockedStage) return; // Stop if blocked
+                    
+                    const el = stageMap[stageName];
+                    const pass = !!checks[stageName];
+                    
+                    // Previous stage visual cleanup (optional, keeping history is better visually)
+                    
+                    if (pass) {
+                      el.classList.add("active-ok");
+                      currentResultEl.textContent = describeStage(stageName, sample, true);
+                    } else {
+                      el.classList.add("active-ng");
+                      blockedStage = stageName;
+                      currentResultEl.textContent = describeStage(stageName, sample, false);
+                      currentResultEl.style.color = "#ff4d4f";
+                      currentTitleEl.style.color = "#ff4d4f";
+                    }
+                  }, 800 * (i + 1));
+                });
+
+                // Final Output
+                setTimeout(() => {
+                  const outEl = stageMap.out;
+                  if (blockedStage) {
+                    outEl.classList.add("active-ng");
+                    logLineEl.innerHTML = `<span style="color:#ff4d4f">BLOCK</span>: ${sample.desc}により出力停止。`;
+                  } else {
+                    outEl.classList.add("active-ok");
+                    currentResultEl.textContent = describeStage("out", sample, true);
+                    currentResultEl.style.color = "#48e0c2";
+                    currentTitleEl.style.color = "#48e0c2";
+                    logLineEl.innerHTML = `<span style="color:#48e0c2">SAFE</span>: 全レイヤーの安全基準を満たしました。`;
                   }
-                );
-                sections.forEach((sec) => observer.observe(sec));
-            }
 
-            // Initial state
-            setActiveNode("core");
-            wasanInitialized = true;
-        }
+                  // Next Cycle
+                  setTimeout(() => {
+                    running = false;
+                    runOneCycle();
+                  }, 2000);
+                }, 800 * (checkStages.length + 1));
+              }
 
+              // Start
+              runOneCycle();
+          });
+        })();
     </script>
 </body>
 </html>
