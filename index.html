@@ -54,10 +54,10 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Beautiful Japanese Typography - Final Tune */
+        /* Beautiful Japanese Typography */
         .jp-typeset {
             font-feature-settings: "palt";
-            line-height: 1.9; /* Slightly increased for better mobile reading */
+            line-height: 1.9;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
@@ -70,7 +70,7 @@
         @media (max-width: 767px) {
             .jp-typeset {
                 text-align: left;
-                letter-spacing: 0.03em; /* Slightly wider tracking for mobile */
+                letter-spacing: 0.03em;
             }
         }
 
@@ -122,7 +122,7 @@
         
         .katex { font-size: 1.1em; }
 
-        /* === Safety Shell Demo Styles (Scoped & Embedded) === */
+        /* === Safety Shell Demo Styles === */
         .shell-layout {
             margin-top: 24px;
             display: grid;
@@ -217,7 +217,7 @@
             z-index: 10;
         }
 
-        /* Connecting Lines */
+        /* Connecting Lines - Perfectly aligned for mobile */
         @media (min-width: 641px) {
             .stage-box:not(:last-child)::after {
                 content: "";
@@ -272,91 +272,43 @@
         .shell-log-note { background: rgba(72, 224, 194, 0.05); border-left: 2px solid #48e0c2; padding: 10px; font-size: 0.75rem; color: rgba(255,255,255,0.9); line-height: 1.5; }
         .shell-log-footnote { margin-top: 8px; font-size: 0.65rem; color: rgba(255,255,255,0.4); }
 
-        /* --- Wasan Modal Styles (Scoped) --- */
+        /* --- Wasan Modal Styles --- */
         #wasan-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: radial-gradient(circle at top, #0f172a 0, #020617 100%);
-            z-index: 9999;
-            color: #f8fafc;
-            overflow-y: auto;
-            opacity: 0;
-            pointer-events: none;
+            z-index: 9999; color: #f8fafc; overflow-y: auto; opacity: 0; pointer-events: none;
             transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            --accent: #48e0c2;
-            --accent-glow: rgba(72, 224, 194, 0.4);
+            --accent: #48e0c2; --accent-glow: rgba(72, 224, 194, 0.4);
         }
-
-        #wasan-modal.is-open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-controls {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 16px 20px;
-            display: flex;
-            justify-content: flex-end;
-            background: linear-gradient(to bottom, #020617 0%, rgba(2,6,23,0.8) 70%, rgba(2,6,23,0) 100%);
-            pointer-events: none;
-        }
-        .modal-close-btn {
-            pointer-events: auto;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #e2e8f0;
-            padding: 8px 20px;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        #wasan-modal.is-open { opacity: 1; pointer-events: auto; }
+        .modal-controls { position: sticky; top: 0; z-index: 100; padding: 16px 20px; display: flex; justify-content: flex-end; background: linear-gradient(to bottom, #020617 0%, rgba(2,6,23,0.8) 70%, rgba(2,6,23,0) 100%); pointer-events: none; }
+        .modal-close-btn { pointer-events: auto; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #e2e8f0; padding: 8px 20px; border-radius: 999px; font-size: 0.8rem; font-weight: 500; cursor: pointer; backdrop-filter: blur(8px); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
         .modal-close-btn:hover { background: var(--accent); color: #020617; border-color: var(--accent); }
-
         .modal-content { max-width: 1000px; margin: 0 auto; padding: 0 20px 60px; }
-        
         .wm-header { text-align: center; margin-bottom: 40px; }
         .wm-badge { display: inline-block; padding: 4px 12px; border-radius: 99px; background: rgba(72, 224, 194, 0.1); border: 1px solid rgba(72, 224, 194, 0.2); color: var(--accent); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; }
         .wm-h1 { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 200; letter-spacing: 0.05em; margin: 0 0 12px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .wm-subtitle { color: #94a3b8; font-size: 0.95rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
-
         .wm-diagram-container { position: relative; width: 100%; max-width: 600px; margin: 0 auto 50px; aspect-ratio: 1/1; }
         svg.wm-diagram { width: 100%; height: 100%; overflow: visible; }
-
         .orbit-path { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 1; }
         .orbit-particle { fill: var(--accent); animation: orbit-anim 12s linear infinite; }
         @keyframes orbit-anim { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        
         .core-pulse { fill: var(--accent); opacity: 0.1; transform-origin: center; animation: core-pulse-anim 3s ease-out infinite; }
         @keyframes core-pulse-anim { 0% { transform: scale(0.8); opacity: 0.3; } 100% { transform: scale(2); opacity: 0; } }
-
         .wm-node-group { cursor: pointer; transition: opacity 0.3s; }
         .wm-node-group:hover { opacity: 1; }
         .wm-node-group:hover .wm-node-circle { stroke: var(--accent); stroke-width: 2; fill: rgba(72, 224, 194, 0.1); filter: drop-shadow(0 0 8px var(--accent-glow)); }
         .wm-node-circle { fill: #0f172a; stroke: rgba(255,255,255,0.2); stroke-width: 1.5; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .wm-node-label { font-size: 14px; fill: #fff; font-weight: 500; text-anchor: middle; pointer-events: none; }
         .wm-node-sub { font-size: 10px; fill: #94a3b8; text-anchor: middle; letter-spacing: 0.05em; pointer-events: none; }
-        
         .wm-link { stroke: rgba(255,255,255,0.1); stroke-width: 1; stroke-dasharray: 4 4; }
         .wm-link-active { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 100; stroke-dashoffset: 100; animation: link-flow 2s ease-out infinite; opacity: 0.6; }
         @keyframes link-flow { to { stroke-dashoffset: 0; } }
-
         .wm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 20px; }
         @media (min-width: 768px) { .wm-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
-        /* Mobile grid tweak for better readability */
         @media (max-width: 480px) { .wm-grid { grid-template-columns: 1fr; } }
-
         .wm-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; transition: all 0.3s ease; text-decoration: none; display: block; }
         .wm-card:hover { background: rgba(255,255,255,0.05); border-color: var(--accent); transform: translateY(-4px); }
         .wm-card-num { font-size: 0.7rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 8px; opacity: 0.8; }
@@ -412,14 +364,15 @@
                 <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
             </div>
 
-            <a href="https://ghostdrifttheory.github.io/prime-counter-demo/" target="_blank" class="block bg-white/80 backdrop-blur-md border border-stone-200 p-5 md:p-10 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden">
+            <!-- Main Demo: Prime Counter (Intuitive) -->
+            <a href="https://ghostdrifttheory.github.io/prime-counter-demo/" target="_blank" class="block bg-white/80 backdrop-blur-md border border-stone-200 p-5 md:p-10 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden z-10">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-ai/5 to-transparent rounded-bl-full pointer-events-none"></div>
                 <div class="grid md:grid-cols-3 gap-6 md:gap-8 items-center">
                     <div class="md:col-span-2">
                         <div class="flex items-center gap-3 mb-4 md:mb-5">
                             <i class="fa-solid fa-microchip text-ai text-xl"></i>
                             <h3 class="text-lg md:text-xl font-bold text-sumi tracking-tight">Prime Counter Demo</h3>
-                            <span class="bg-ai text-white text-[10px] px-2 py-0.5 rounded-full tracking-wider font-medium">CORE SYSTEM</span>
+                            <span class="bg-ai text-white text-[10px] px-2 py-0.5 rounded-full tracking-wider font-medium">CORE ENGINE</span>
                         </div>
                         <p class="text-stone-600 mb-5 md:mb-6 font-serif text-sm md:text-base jp-typeset">
                             本OSの中核をなす計算エンジンです。$\pi(x)$ を従来の篩法ではなく、明示公式に基づく「有限回の計算」として導出します。
@@ -439,6 +392,35 @@
                     </div>
                 </div>
             </a>
+
+            <!-- Sub Demo: Explicit PNT (Mathematical) - Connected by thread -->
+            <div class="relative mt-3 pl-3 md:pl-8 md:ml-8 border-l border-stone-300 ml-4">
+                <div class="absolute -top-3 -left-[1px] w-2 h-4 bg-stone-300"></div> <!-- Connector -->
+                <a href="https://ghostdrifttheory.github.io/explicit-pnt-safe-profile-demo-JP/" target="_blank" class="block bg-stone-50/80 backdrop-blur-sm border border-stone-200 p-5 md:p-6 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden transition-colors hover:bg-white hover:border-ai/30">
+                    <!-- Subtle math background - Opacity lowered for readability -->
+                    <div class="absolute inset-0 opacity-[0.03] pointer-events-none overflow-hidden text-sumi font-serif text-3xl md:text-4xl whitespace-nowrap select-none flex items-center justify-center">
+                        $\psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \ln(2\pi)$
+                    </div>
+                    
+                    <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-[9px] font-bold text-stone-400 tracking-widest uppercase border border-stone-300 px-1.5 py-0.5 rounded-sm bg-white/50">For Mathematicians</span>
+                                <h3 class="text-base md:text-lg font-bold text-sumi font-serif">Explicit PNT Safe Profile</h3>
+                            </div>
+                            <p class="text-xs md:text-sm text-stone-500 font-serif leading-relaxed max-w-2xl jp-typeset">
+                                解析的整数論の厳密な視点から、素数定理（PNT）と明示公式の誤差項挙動を検証する数理プロファイラ。
+                                有限の安全域がいかに数学的に保証されるかを確認するための詳細デモです。
+                            </p>
+                        </div>
+                        <div class="flex-shrink-0 text-right self-end md:self-center">
+                            <span class="text-xs font-serif text-ai border-b border-ai/20 group-hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
+                                Verify Logic <i class="fa-solid fa-square-root-variable text-[10px]"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </section>
 
         <!-- 2. Research Map -->
@@ -662,11 +644,11 @@
         <!-- 5. Philosophical Foundation (INTEGRATED) -->
         <section id="philosophy" class="pb-12 md:pb-20 scroll-mt-20">
             <div class="relative bg-ai text-washi p-5 md:p-14 overflow-hidden rounded-sm shadow-lg">
-                <!-- Decorative Circles (Adjusted for mobile to prevent overlap) -->
+                <!-- Decorative Circles -->
                 <div class="absolute -right-20 -bottom-20 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none"></div>
                 <div class="absolute -right-10 -bottom-10 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none"></div>
                 
-                <!-- 1. Philosophy Header (Sharpened Text) -->
+                <!-- 1. Philosophy Header -->
                 <div class="relative z-10 mb-8 md:mb-10">
                     <span class="text-kin text-xs tracking-[0.2em] uppercase block opacity-80 mb-3">Philosophical Foundation</span>
                     <h2 class="text-2xl md:text-4xl font-serif font-bold leading-tight mb-4 md:mb-6">
@@ -679,7 +661,7 @@
                     </p>
                 </div>
 
-                <!-- 2. Integrated Safety Shell Demo (Mobile Optimized) -->
+                <!-- 2. Integrated Safety Shell Demo -->
                 <div class="relative z-10 mb-8 md:mb-12">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="text-[10px] font-mono text-[#48e0c2] border border-[#48e0c2]/30 px-2 py-0.5 rounded bg-[#48e0c2]/10 uppercase tracking-wider">Architecture Proof</span>
@@ -788,7 +770,7 @@
                     </button>
                 </div>
 
-                <!-- Circular Logo (Positioned safely) -->
+                <!-- Circular Logo -->
                 <div class="absolute top-6 right-6 w-16 h-16 md:bottom-8 md:right-12 md:top-auto md:w-32 md:h-32 border border-white/10 rounded-full flex items-center justify-center pointer-events-none opacity-30 md:opacity-50">
                     <div class="absolute inset-0 border border-white/5 rounded-full animate-[pulse_4s_infinite]"></div>
                     <span class="font-serif text-sm md:text-xl text-kin writing-vertical select-none">円理</span>
@@ -819,7 +801,7 @@
         </div>
     </footer>
 
-    <!-- WASAN MODAL (The Deep Layer - Refined) -->
+    <!-- WASAN MODAL (The Deep Layer) -->
     <div id="wasan-modal">
         <div class="modal-controls">
             <button onclick="closeWasanModal()" class="modal-close-btn">
