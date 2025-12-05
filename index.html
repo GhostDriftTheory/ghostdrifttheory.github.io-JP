@@ -1,103 +1,584 @@
-<main>
-  <section>
-    <h2>▼ 素数計算OS（Prime OS）</h2>
-    <p>
-      素数計算OSの中核デモです。π(x) を有限回の計算で返し、ナイーブな素数カウンタとの比較や、
-      明示公式の各項の寄与をその場で確認できます。
-    </p>
-    <ul>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/prime-counter-demo/">
-          Prime Counter Demo（JP）
-        </a>
-      </li>
-    </ul>
-  </section>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime OS Project - Integrated Archive</title>
+    <meta name="description" content="Prime OS Project: Exploring the convergence of Wasan 2.0, Finite Closure, and Prime Number Theory.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- KaTeX for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
-  <section>
-    <h2>▼ 先行研究マップ</h2>
-    <p>
-      素数計算OSの位置づけを、2020–2025年の研究動向の中で整理した日本語マップ群です。
-      「明示公式」「計算・検証」「素数重力」の3本柱で全体像を俯瞰できます。
-    </p>
-    <ul>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/prime-os-explicit-map-JP/">
-          明示公式・ζ関数まわりの研究マップ（JP）
-        </a>
-      </li>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/prime-os-research-map-JP/">
-          素数計算アルゴリズム／厳密数値計算マップ（JP）
-        </a>
-      </li>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/prime-gravity-os-research-map-JP/">
-          素数重力（Prime Gravity）研究マップ（JP）
-        </a>
-      </li>
-    </ul>
-  </section>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Noto Serif JP"', '"Hiragino Mincho ProN"', '"Yu Mincho"', 'serif'],
+                        sans: ['"Noto Sans JP"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+                    },
+                    colors: {
+                        sumi: '#2d3436', // Ink black
+                        ai: '#0f2c4e',   // Indigo
+                        washi: '#fdfbf7', // Japanese paper
+                        sakura: '#eaddcf', // Faint accent
+                        kin: '#c5a059',   // Muted gold
+                    },
+                    screens: {
+                        'xs': '480px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap');
 
-  <section>
-    <h2>▼ 応用例デモ（特許申請済）</h2>
-    <p>
-      素数計算OSと同じ「有限閉包／ADIC」の原理を、
-      エネルギー制御・量子OS・金融検証に展開した応用デモです。
-      各分野で「安全に計算を閉じるOS」としての振る舞いを確認できます。
-    </p>
-    <ul>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/energy-control-os-adic-demo-JP/">
-          Energy Control OS（電力・蓄電制御デモ／JP）
-        </a>
-      </li>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/Quantum-OS-Lab-JP/">
-          Quantum OS Lab（量子OSデモ／JP）
-        </a>
-      </li>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/ghostdrift-finance-verifier-JP/">
-          Finance Verifier OS（金融リスク検証デモ／JP）
-        </a>
-      </li>
-    </ul>
-  </section>
+        body {
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#e5e5e5 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: #2d3436;
+            /* Font smoothing for better readability */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-  <section>
-    <h2>▼ 教育・解説デモ</h2>
-    <p>
-      Yukawa カーネルと有限閉包の直感、岡潔の思想と「エモーティブOS」を題材にした、
-      学習・解説向けのデモです。数式だけでなく「手触り」で理論のコアに触れられるように設計しています。
-    </p>
-    <ul>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/yukawa-finite-field-closure-demo-JP/">
-          Yukawa Finite Closure Demo（有限閉包の直感デモ／JP）
-        </a>
-      </li>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/Okakiyoshi-Emotive-OS-Demo-JP/">
-          岡潔エモーティブOSデモ（意味エネルギーOS実験／JP）
-        </a>
-      </li>
-    </ul>
-  </section>
+        /* Beautiful Japanese Typography */
+        .jp-typeset {
+            font-feature-settings: "palt";
+            text-align: justify;
+            text-justify: inter-ideograph;
+            line-height: 1.8;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
 
-  <section>
-    <h2>▼ 文化背景デモ（和算2.0）</h2>
-    <p>
-      和算（算額・円理）と ADIC／有限閉包を結びつける文化系デモです。
-      「連続解析」ではなく「有限を尊重する計算文化」としての和算2.0を、
-      可視化・数理OSとして再構成しています。
-    </p>
-    <ul>
-      <li>
-        <a href="https://ghostdrifttheory.github.io/Wasan-Enri-ADIC-Demo-JP/">
-          和算・円理 ADIC デモ（JP）
-        </a>
-      </li>
-    </ul>
-  </section>
-</main>
+        /* Vertical text utility */
+        .writing-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        /* Subtle noise texture for paper feel */
+        .washi-texture::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -8px rgba(15, 44, 78, 0.12);
+            border-color: #0f2c4e;
+        }
+
+        /* Animated Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3; /* Slightly reduced for better text contrast */
+        }
+        
+        /* KaTeX Font Fix for Japanese Mix */
+        .katex { font-size: 1.1em; }
+    </style>
+</head>
+<body class="font-sans antialiased washi-texture relative min-h-screen flex flex-col">
+
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header Section -->
+    <header class="relative pt-16 pb-10 px-5 md:pt-24 md:pb-14 md:px-8 border-b border-stone-300/60 bg-white/30 backdrop-blur-[2px]">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end">
+            <div class="max-w-3xl">
+                <p class="text-ai font-serif tracking-widest text-xs md:text-sm mb-3 font-bold uppercase flex items-center gap-2">
+                    <span class="w-8 h-px bg-ai/50"></span>
+                    Mathematical Innovation & Heritage
+                </p>
+                <h1 class="text-3xl sm:text-4xl md:text-6xl font-serif font-medium text-sumi leading-tight">
+                    数理<span class="text-ai">OS</span>統合アーカイブ
+                </h1>
+                <p class="mt-6 text-stone-600 font-serif text-sm md:text-base leading-relaxed jp-typeset max-w-2xl">
+                    有限閉包の原理、Ghost Drift現象、そして和算の精神。
+                    これらを統合し、次世代の計算パラダイム「Prime OS」へと昇華させるための研究・実装記録。
+                </p>
+            </div>
+            <div class="mt-8 md:mt-0 text-right hidden md:block">
+                <div class="writing-vertical h-36 text-stone-400 font-serif text-xs tracking-[0.2em] border-l border-stone-300 pl-4 ml-auto opacity-70">
+                    令和七年 構築
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-6xl mx-auto px-5 md:px-8 py-12 md:py-20 space-y-20 md:space-y-32">
+
+        <!-- 1. Prime OS Core -->
+        <section id="core" class="relative scroll-mt-20">
+            <!-- Vertical Label (Desktop only) -->
+            <div class="absolute -left-6 top-0 writing-vertical text-[10px] text-kin tracking-[0.4em] font-serif h-full opacity-60 hidden xl:block">
+                壱：中核実装
+            </div>
+            
+            <!-- Section Header -->
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-px flex-1 bg-stone-300/60"></div>
+                <h2 class="text-xl md:text-3xl font-serif text-ai whitespace-nowrap">
+                    素数計算OS <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Prime OS Core</span>
+                </h2>
+                <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
+            </div>
+
+            <!-- Content Card -->
+            <div class="bg-white/80 backdrop-blur-md border border-stone-200 p-6 md:p-10 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden">
+                <!-- Decorative background element -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-ai/5 to-transparent rounded-bl-full pointer-events-none"></div>
+
+                <div class="grid md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-2">
+                        <div class="flex items-center gap-3 mb-5">
+                            <i class="fa-solid fa-microchip text-ai text-xl"></i>
+                            <h3 class="text-xl font-bold text-sumi tracking-tight">Prime Counter Demo</h3>
+                            <span class="bg-ai text-white text-[9px] px-2 py-0.5 rounded-full tracking-wider font-medium">CORE SYSTEM</span>
+                        </div>
+                        <p class="text-stone-600 mb-6 font-serif text-sm md:text-base jp-typeset">
+                            本OSの中核をなす計算エンジンです。$\pi(x)$ を従来の篩法ではなく、明示公式に基づく「有限回の計算」として導出します。
+                            ナイーブなカウンタとのリアルタイム比較により、解析的整数論における各項の寄与を視覚的かつ定量的に検証可能です。
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-[10px] md:text-xs text-stone-500 font-mono">
+                            <span class="border border-stone-300 bg-stone-50/50 px-2 py-1">Explicit Formula</span>
+                            <span class="border border-stone-300 bg-stone-50/50 px-2 py-1">Riemann Zeta</span>
+                            <span class="border border-stone-300 bg-stone-50/50 px-2 py-1">Finite Processing</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-stone-200/60 md:pl-8">
+                        <div class="text-center group-hover:scale-105 transition-transform duration-500">
+                            <div class="w-16 h-16 rounded-full border border-ai/20 bg-ai/5 flex items-center justify-center mx-auto mb-3 text-ai shadow-inner">
+                                <i class="fa-solid fa-play text-xl ml-1"></i>
+                            </div>
+                            <span class="text-sm font-serif text-stone-600 border-b border-stone-300 group-hover:border-ai pb-0.5 transition-colors">デモを起動</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Research Map -->
+        <section id="research" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-px flex-1 bg-stone-300/60"></div>
+                <h2 class="text-xl md:text-3xl font-serif text-ai whitespace-nowrap">
+                    先行研究・体系図 <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Research Landscape</span>
+                </h2>
+                <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-5">
+                <!-- Map Card 1 -->
+                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
+                    <h3 class="font-bold text-base md:text-lg mb-3 text-sumi flex items-center gap-2">
+                        <span class="text-kin text-xs font-mono">01</span>
+                        明示公式・ζ関数マップ
+                    </h3>
+                    <p class="text-sm text-stone-600 mb-5 jp-typeset text-justify">
+                        2020-2025年の研究動向におけるPrime OSの位置づけを、解析的アプローチの視点から俯瞰します。
+                    </p>
+                    <a href="#" class="text-xs text-ai font-bold border-b border-ai/30 hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
+                        VIEW MAP <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </article>
+
+                <!-- Map Card 2 -->
+                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
+                    <h3 class="font-bold text-base md:text-lg mb-3 text-sumi flex items-center gap-2">
+                        <span class="text-kin text-xs font-mono">02</span>
+                        厳密数値計算マップ
+                    </h3>
+                    <p class="text-sm text-stone-600 mb-5 jp-typeset text-justify">
+                        アルゴリズム論的視点からの系譜図。計算複雑性と検証精度のトレードオフをどう克服したかを示します。
+                    </p>
+                    <a href="#" class="text-xs text-ai font-bold border-b border-ai/30 hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
+                        VIEW MAP <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </article>
+
+                <!-- Map Card 3 -->
+                <article class="bg-white/70 backdrop-blur-sm border-t-2 border-stone-200 border-t-stone-400 p-6 hover:bg-white transition-colors duration-300 shadow-sm hover:shadow-md">
+                    <h3 class="font-bold text-base md:text-lg mb-3 text-sumi flex items-center gap-2">
+                        <span class="text-kin text-xs font-mono">03</span>
+                        素数重力（Prime Gravity）
+                    </h3>
+                    <p class="text-sm text-stone-600 mb-5 jp-typeset text-justify">
+                        「Ghost Drift」現象の理論的支柱となる素数重力場の研究相関図。物理的アナロジーと数論の交差点。
+                    </p>
+                    <a href="#" class="text-xs text-ai font-bold border-b border-ai/30 hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
+                        VIEW MAP <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <!-- 3. Applications (Patent Pending) -->
+        <section id="applications" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-px flex-1 bg-stone-300/60"></div>
+                <h2 class="text-xl md:text-3xl font-serif text-ai whitespace-nowrap">
+                    産業応用 <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Industrial Applications</span>
+                </h2>
+                <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
+            </div>
+
+            <div class="bg-stone-100/60 border border-stone-200/80 p-6 md:p-10 rounded-sm">
+                <div class="flex items-center gap-2 mb-8">
+                    <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-kin/20 text-kin text-[10px]">
+                        <i class="fa-solid fa-certificate"></i>
+                    </span>
+                    <span class="text-[10px] md:text-xs font-bold tracking-widest text-stone-500 uppercase">Patent Pending / 特許出願中</span>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- App 1 -->
+                    <div class="group cursor-pointer bg-white p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fa-solid fa-bolt text-xl md:text-2xl text-stone-300 group-hover:text-amber-500 transition-colors"></i>
+                            <span class="text-[10px] font-mono text-stone-400">ENERGY</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-bold text-sumi mb-3">Energy Control OS</h3>
+                        <p class="text-xs md:text-sm text-stone-600 jp-typeset">
+                            電力・蓄電制御における「有限閉包」の適用。予測不可能な負荷変動に対し、計算を安全に閉じることで系を安定化させます。
+                        </p>
+                    </div>
+
+                    <!-- App 2 -->
+                    <div class="group cursor-pointer bg-white p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fa-solid fa-atom text-xl md:text-2xl text-stone-300 group-hover:text-purple-500 transition-colors"></i>
+                            <span class="text-[10px] font-mono text-stone-400">QUANTUM</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-bold text-sumi mb-3">Quantum OS Lab</h3>
+                        <p class="text-xs md:text-sm text-stone-600 jp-typeset">
+                            量子OSデモ。観測問題と状態確定のプロセスにADICの原理を応用し、ノイズ耐性の高い制御ロジックを提示します。
+                        </p>
+                    </div>
+
+                    <!-- App 3 -->
+                    <div class="group cursor-pointer bg-white p-6 shadow-sm border border-transparent hover:border-ai/30 transition-all duration-300 rounded-sm hover:-translate-y-1">
+                        <div class="flex justify-between items-start mb-4">
+                            <i class="fa-solid fa-chart-line text-xl md:text-2xl text-stone-300 group-hover:text-emerald-600 transition-colors"></i>
+                            <span class="text-[10px] font-mono text-stone-400">FINANCE</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-bold text-sumi mb-3">Finance Verifier OS</h3>
+                        <p class="text-xs md:text-sm text-stone-600 jp-typeset">
+                            金融リスク検証デモ。テールリスクのような極端事象に対し、無限の拡散を防ぎ、有限の範囲内でリスクを評価・封じ込めます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Historical Architecture Model -->
+        <section id="historical-architecture" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="h-px flex-1 bg-stone-300/60"></div>
+                <h2 class="text-xl md:text-3xl font-serif text-ai whitespace-nowrap">
+                    史的アーキテクチャモデル
+                    <span class="block md:inline text-sm md:text-lg text-stone-500 font-normal md:ml-2 opacity-70 mt-1 md:mt-0">Historical Architecture Layers</span>
+                </h2>
+                <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
+            </div>
+
+            <p class="text-sm md:text-base text-stone-600 font-serif mb-10 leading-relaxed max-w-4xl mx-auto md:text-center jp-typeset">
+                Prime OSのシステム設計思想を、日本の数学史・科学史における四つのパラダイムに対応させて整理した概念モデルです。
+                各レイヤーは単なる歴史的参照ではなく、現在のOS実装における「観測」「証明」「カーネル」「UI/UX」の各モジュールに厳密に対応しています。
+            </p>
+
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                <!-- LAYER I: Shibukawa -->
+                <article class="bg-white/90 border border-stone-200 p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
+                    <div class="absolute -top-2 -right-2 p-2 opacity-[0.03] text-7xl font-serif select-none pointer-events-none text-sumi">壱</div>
+                    <div class="mb-auto">
+                        <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
+                            <span class="text-kin text-[10px] font-mono tracking-widest">LAYER I</span>
+                            <span class="text-[9px] text-stone-400 uppercase tracking-wide">Input / Sensor</span>
+                        </div>
+                        <h3 class="text-lg font-serif font-bold text-sumi mb-1">渋川春海 モデル</h3>
+                        <p class="text-[10px] text-ai font-bold mb-4 tracking-wide opacity-80">FINITE OBSERVATION</p>
+                        <div class="text-xs md:text-sm text-stone-600 jp-typeset">
+                            <strong class="block mb-1 text-sumi opacity-90">[暦と世界モデル]</strong>
+                            有限個の観測データから全宇宙の暦を立ち上げる「改暦」のアルゴリズム。OSにおける「有限窓」および「$\delta_{pos}$ による世界モデル整合性チェック」の基底レイヤーに対応。
+                        </div>
+                    </div>
+                </article>
+
+                <!-- LAYER II: Seki -->
+                <article class="bg-white/90 border border-stone-200 p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
+                    <div class="absolute -top-2 -right-2 p-2 opacity-[0.03] text-7xl font-serif select-none pointer-events-none text-sumi">弐</div>
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
+                            <span class="text-kin text-[10px] font-mono tracking-widest">LAYER II</span>
+                            <span class="text-[9px] text-stone-400 uppercase tracking-wide">Logic / Proof</span>
+                        </div>
+                        <h3 class="text-lg font-serif font-bold text-sumi mb-1">関孝和 モデル</h3>
+                        <p class="text-[10px] text-ai font-bold mb-4 tracking-wide opacity-80">RIGOROUS PROOF</p>
+                        <div class="text-xs md:text-sm text-stone-600 jp-typeset">
+                            <strong class="block mb-1 text-sumi opacity-90">[円理と不等式]</strong>
+                            円周率などを不等式で挟み込み、厳密に世界を押さえる手法。OSにおける有理数の上下界、$\Sigma_1$レジャー検証、および証明可能なバウンド設計に対応する論理コア。
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <a href="https://ghostdrifttheory.github.io/Wasan-Enri-ADIC-Demo-JP/" class="inline-flex items-center gap-2 text-[10px] text-ai font-bold border-b border-ai/20 pb-0.5 hover:border-ai transition-colors">
+                            Launch ADIC Demo
+                            <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- LAYER III: Yukawa -->
+                <article class="bg-white/90 border border-stone-200 p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
+                    <div class="absolute -top-2 -right-2 p-2 opacity-[0.03] text-7xl font-serif select-none pointer-events-none text-sumi">参</div>
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
+                            <span class="text-kin text-[10px] font-mono tracking-widest">LAYER III</span>
+                            <span class="text-[9px] text-stone-400 uppercase tracking-wide">Kernel / Closure</span>
+                        </div>
+                        <h3 class="text-lg font-serif font-bold text-sumi mb-1">湯川秀樹 モデル</h3>
+                        <p class="text-[10px] text-ai font-bold mb-4 tracking-wide opacity-80">POTENTIAL KERNEL</p>
+                        <div class="text-xs md:text-sm text-stone-600 jp-typeset">
+                            <strong class="block mb-1 text-sumi opacity-90">[ポテンシャルと閉包]</strong>
+                            中間子論における力の到達距離（Range）の直感。「無限側の寄与を有限個の有理数に閉じる」という、OSの核（カーネル）となる有限閉包技術の実装モデル。
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <a href="https://ghostdrifttheory.github.io/yukawa-finite-field-closure-demo-JP/" class="inline-flex items-center gap-2 text-[10px] text-ai font-bold border-b border-ai/20 pb-0.5 hover:border-ai transition-colors">
+                            Launch Yukawa Demo
+                            <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- LAYER IV: Oka -->
+                <article class="bg-white/90 border border-stone-200 p-6 card-hover flex flex-col h-full group relative overflow-hidden rounded-sm">
+                    <div class="absolute -top-2 -right-2 p-2 opacity-[0.03] text-7xl font-serif select-none pointer-events-none text-sumi">肆</div>
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between mb-3 border-b border-stone-100 pb-2">
+                            <span class="text-kin text-[10px] font-mono tracking-widest">LAYER IV</span>
+                            <span class="text-[9px] text-stone-400 uppercase tracking-wide">Interface / Semantic</span>
+                        </div>
+                        <h3 class="text-lg font-serif font-bold text-sumi mb-1">岡潔 モデル</h3>
+                        <p class="text-[10px] text-ai font-bold mb-4 tracking-wide opacity-80">SEMANTIC ENERGY</p>
+                        <div class="text-xs md:text-sm text-stone-600 jp-typeset">
+                            <strong class="block mb-1 text-sumi opacity-90">[情緒と意味エネルギー]</strong>
+                            「計算結果が持つ意味」を人間側にどう接続するか。セキュリティ設計や意味エネルギーの流動を制御する、最上位のインターフェースおよび倫理レイヤー。
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <a href="https://ghostdrifttheory.github.io/Okakiyoshi-Emotive-OS-Demo-JP/" class="inline-flex items-center gap-2 text-[10px] text-ai font-bold border-b border-ai/20 pb-0.5 hover:border-ai transition-colors">
+                            Launch Emotive Demo
+                            <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 5. Philosophical Foundation -->
+        <section id="philosophy" class="pb-12 md:pb-20 scroll-mt-20">
+            <div class="relative bg-ai text-washi p-8 md:p-14 overflow-hidden rounded-sm shadow-lg">
+                <!-- Decorative Circles -->
+                <div class="absolute -right-20 -bottom-20 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none"></div>
+                <div class="absolute -right-10 -bottom-10 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none"></div>
+                
+                <div class="relative z-10 grid md:grid-cols-3 gap-8 md:gap-12 items-center">
+                    <div class="md:col-span-2 space-y-4 md:space-y-6">
+                        <span class="text-kin text-xs tracking-[0.2em] uppercase block opacity-80">Philosophical Foundation</span>
+                        <h2 class="text-2xl md:text-4xl font-serif font-bold leading-tight">
+                            和算 2.0 
+                            <span class="block text-base md:text-xl opacity-70 font-normal mt-2 md:inline md:mt-0 md:ml-3">Toward a Finite Universe</span>
+                        </h2>
+                        <p class="text-stone-300 font-serif text-sm md:text-base leading-relaxed jp-typeset">
+                            西洋近代数学が志向した「無限への接続」に対し、日本の和算（算額・円理）は「有限の中に完全な宇宙を見出す」独自の数理哲学を持っていました。
+                            Prime OSは、ADICと有限閉包技術を通じて、この「有限を尊重する計算文化」を現代のテクノロジーとして再定義する試みです。
+                        </p>
+                        <div class="pt-2">
+                             <a href="#" class="inline-flex items-center gap-3 text-white border-b border-white/40 pb-1 hover:border-white transition-all group">
+                                <span class="text-sm">Ghost Drift Theory (Philosophy)</span>
+                                <i class="fa-solid fa-chevron-right text-xs transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex justify-center md:justify-end order-first md:order-last">
+                        <div class="w-24 h-24 md:w-40 md:h-40 border border-white/20 rounded-full flex items-center justify-center relative bg-white/5 backdrop-blur-sm">
+                            <div class="absolute inset-0 border border-white/10 rounded-full animate-[pulse_3s_infinite]"></div>
+                            <span class="font-serif text-xl md:text-2xl text-kin writing-vertical select-none">円理</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-sumi text-stone-400 py-12 border-t-2 border-kin/30 mt-auto">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-end">
+            <div>
+                <h4 class="text-washi font-serif text-base mb-4 tracking-wide">Prime OS Project</h4>
+                <p class="text-[10px] md:text-xs leading-relaxed max-w-sm text-stone-500 text-justify jp-typeset">
+                    本プロジェクトは、マニー（Manny）によるゴースト理論およびGhost Drift現象の数理モデル化、
+                    そしてそれを用いた次世代計算基盤の研究開発アーカイブです。
+                </p>
+            </div>
+            <div class="text-right flex flex-col justify-end">
+                <div class="flex gap-6 justify-end text-xs md:text-sm mb-4 font-serif">
+                    <a href="#" class="hover:text-washi transition-colors">Documentation</a>
+                    <a href="#" class="hover:text-washi transition-colors">GitHub</a>
+                    <a href="#" class="hover:text-washi transition-colors">Contact</a>
+                </div>
+                <p class="text-[10px] opacity-40 font-mono tracking-wider">&copy; 2025 Prime OS Project / Manny. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Background Animation & KaTeX Config -->
+    <script>
+        // --- 1. Math Rendering (KaTeX) ---
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError : false,
+                output: 'html' // Use HTML output for better accessibility/performance
+            });
+        });
+
+        // --- 2. Background Animation (Ghost Drift) ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let circles = [];
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            initCircles();
+        }
+
+        class Circle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.r = Math.random() * (width < 600 ? 50 : 100) + 30; // Smaller circles on mobile
+                this.vx = (Math.random() - 0.5) * 0.15; // Slower, more zen-like
+                this.vy = (Math.random() - 0.5) * 0.15;
+                this.opacity = Math.random() * 0.05 + 0.01; 
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Soft wrapping
+                if (this.x < -this.r) this.x = width + this.r;
+                if (this.x > width + this.r) this.x = -this.r;
+                if (this.y < -this.r) this.y = height + this.r;
+                if (this.y > height + this.r) this.y = -this.r;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(15, 44, 78, ${this.opacity})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Center point
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 0.5, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(197, 160, 89, ${this.opacity * 2})`;
+                ctx.fill();
+            }
+        }
+
+        function initCircles() {
+            circles = [];
+            // Adaptive density based on screen size
+            const density = width < 600 ? 25000 : 40000;
+            const numCircles = Math.floor((width * height) / density);
+            
+            for (let i = 0; i < numCircles; i++) {
+                circles.push(new Circle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            circles.forEach(c => {
+                c.update();
+                c.draw();
+            });
+
+            // Closure lines
+            const connectDist = width < 600 ? 100 : 150;
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < circles.length; i++) {
+                for (let j = i + 1; j < circles.length; j++) {
+                    const dx = circles[i].x - circles[j].x;
+                    const dy = circles[i].y - circles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectDist) {
+                        ctx.beginPath();
+                        ctx.moveTo(circles[i].x, circles[i].y);
+                        ctx.lineTo(circles[j].x, circles[j].y);
+                        // Subtle gray lines
+                        ctx.strokeStyle = `rgba(200, 200, 200, ${0.1 - dist/(connectDist*10)})`; 
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        // Optimization: Debounce resize event
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resize, 200);
+        });
+        
+        resize();
+        animate();
+    </script>
+</body>
+</html>
