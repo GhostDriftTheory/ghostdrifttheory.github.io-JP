@@ -45,6 +45,11 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap');
 
+        html, body {
+            overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+            width: 100%;
+        }
+
         body {
             background-color: #fdfbf7;
             background-image: radial-gradient(#e5e5e5 1px, transparent 1px);
@@ -80,7 +85,7 @@
             text-orientation: mixed;
         }
 
-        /* Subtle noise texture for paper feel */
+        /* Subtle noise texture */
         .washi-texture::before {
             content: "";
             position: fixed;
@@ -274,7 +279,7 @@
 
         /* --- Wasan Modal Styles --- */
         #wasan-modal {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; /* Changed 100vw to 100% for safety */
             background: radial-gradient(circle at top, #0f172a 0, #020617 100%);
             z-index: 9999; color: #f8fafc; overflow-y: auto; opacity: 0; pointer-events: none;
             transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -356,12 +361,13 @@
             <div class="absolute -left-6 top-0 writing-vertical text-[10px] text-kin tracking-[0.4em] font-serif h-full opacity-60 hidden xl:block">
                 壱：中核実装
             </div>
-            <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
-                <div class="h-px flex-1 bg-stone-300/60"></div>
-                <h2 class="text-lg md:text-3xl font-serif text-ai whitespace-nowrap">
-                    素数計算OS <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Prime OS Core</span>
+            <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-6 md:mb-8">
+                <div class="hidden md:block h-px flex-1 bg-stone-300/60"></div>
+                <h2 class="text-lg md:text-3xl font-serif text-ai flex flex-col md:flex-row md:items-baseline">
+                    <span class="whitespace-nowrap">素数計算OS</span>
+                    <span class="text-sm md:text-lg text-stone-500 font-normal md:ml-3 opacity-70 mt-1 md:mt-0">Prime OS Core</span>
                 </h2>
-                <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
+                <div class="h-px w-full md:w-16 bg-stone-300/60 mt-2 md:mt-0"></div>
             </div>
 
             <!-- Main Demo: Prime Counter (Intuitive) -->
@@ -460,12 +466,13 @@
 
         <!-- 2. Research Map -->
         <section id="research" class="scroll-mt-20">
-            <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
-                <div class="h-px flex-1 bg-stone-300/60"></div>
-                <h2 class="text-lg md:text-3xl font-serif text-ai whitespace-nowrap">
-                    先行研究・体系図 <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Research Landscape</span>
+            <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-6 md:mb-8">
+                <div class="hidden md:block h-px flex-1 bg-stone-300/60"></div>
+                <h2 class="text-lg md:text-3xl font-serif text-ai flex flex-col md:flex-row md:items-baseline">
+                    <span class="whitespace-nowrap">先行研究・体系図</span>
+                    <span class="text-sm md:text-lg text-stone-500 font-normal md:ml-3 opacity-70 mt-1 md:mt-0">Research Landscape</span>
                 </h2>
-                <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
+                <div class="h-px w-full md:w-16 bg-stone-300/60 mt-2 md:mt-0"></div>
             </div>
             
             <div class="grid md:grid-cols-3 gap-4 md:gap-5">
@@ -512,12 +519,13 @@
 
         <!-- 3. Applications -->
         <section id="applications" class="scroll-mt-20">
-            <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
-                <div class="h-px flex-1 bg-stone-300/60"></div>
-                <h2 class="text-lg md:text-3xl font-serif text-ai whitespace-nowrap">
-                    産業応用 <span class="text-sm md:text-lg text-stone-500 font-normal ml-2 opacity-70">Industrial Applications</span>
+            <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-6 md:mb-8">
+                <div class="hidden md:block h-px flex-1 bg-stone-300/60"></div>
+                <h2 class="text-lg md:text-3xl font-serif text-ai flex flex-col md:flex-row md:items-baseline">
+                    <span class="whitespace-nowrap">産業応用</span>
+                    <span class="text-sm md:text-lg text-stone-500 font-normal md:ml-3 opacity-70 mt-1 md:mt-0">Industrial Applications</span>
                 </h2>
-                <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
+                <div class="h-px w-full md:w-16 bg-stone-300/60 mt-2 md:mt-0"></div>
             </div>
 
             <div class="bg-stone-100/60 border border-stone-200/80 p-5 md:p-10 rounded-sm">
@@ -567,13 +575,13 @@
 
         <!-- 4. Historical Architecture Model -->
         <section id="historical-architecture" class="scroll-mt-20">
-            <div class="flex items-center gap-3 md:gap-4 mb-6">
-                <div class="h-px flex-1 bg-stone-300/60"></div>
-                <h2 class="text-lg md:text-3xl font-serif text-ai whitespace-nowrap">
-                    史的アーキテクチャモデル
-                    <span class="block md:inline text-sm md:text-lg text-stone-500 font-normal md:ml-2 opacity-70 mt-1 md:mt-0">Historical Architecture Layers</span>
+            <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-6">
+                <div class="hidden md:block h-px flex-1 bg-stone-300/60"></div>
+                <h2 class="text-lg md:text-3xl font-serif text-ai flex flex-col md:flex-row md:items-baseline">
+                    <span class="whitespace-nowrap">史的アーキテクチャモデル</span>
+                    <span class="text-sm md:text-lg text-stone-500 font-normal md:ml-3 opacity-70 mt-1 md:mt-0">Historical Architecture Layers</span>
                 </h2>
-                <div class="h-px w-8 md:w-16 bg-stone-300/60"></div>
+                <div class="h-px w-full md:w-16 bg-stone-300/60 mt-2 md:mt-0"></div>
             </div>
 
             <p class="text-sm md:text-base text-stone-600 font-serif mb-8 md:mb-10 leading-relaxed max-w-4xl mx-auto md:text-center jp-typeset">
