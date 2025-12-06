@@ -217,7 +217,7 @@
             z-index: 10;
         }
 
-        /* Connecting Lines - Perfectly aligned for mobile */
+        /* Connecting Lines */
         @media (min-width: 641px) {
             .stage-box:not(:last-child)::after {
                 content: "";
@@ -393,33 +393,68 @@
                 </div>
             </a>
 
-            <!-- Sub Demo: Explicit PNT (Mathematical) - Connected by thread -->
-            <div class="relative mt-3 pl-3 md:pl-8 md:ml-8 border-l border-stone-300 ml-4">
-                <div class="absolute -top-3 -left-[1px] w-2 h-4 bg-stone-300"></div> <!-- Connector -->
-                <a href="https://ghostdrifttheory.github.io/explicit-pnt-safe-profile-demo-JP/" target="_blank" class="block bg-stone-50/80 backdrop-blur-sm border border-stone-200 p-5 md:p-6 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden transition-colors hover:bg-white hover:border-ai/30">
-                    <!-- Subtle math background - Opacity lowered for readability -->
-                    <div class="absolute inset-0 opacity-[0.03] pointer-events-none overflow-hidden text-sumi font-serif text-3xl md:text-4xl whitespace-nowrap select-none flex items-center justify-center">
-                        $\psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \ln(2\pi)$
-                    </div>
-                    
-                    <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-[9px] font-bold text-stone-400 tracking-widest uppercase border border-stone-300 px-1.5 py-0.5 rounded-sm bg-white/50">For Mathematicians</span>
-                                <h3 class="text-base md:text-lg font-bold text-sumi font-serif">Explicit PNT Safe Profile</h3>
+            <!-- Theoretical Verification Suite (Branched from Main) -->
+            <div class="relative mt-4 ml-4 md:ml-8">
+                <!-- Vertical Thread from above (Core) -->
+                <div class="absolute top-0 bottom-8 left-0 w-px bg-stone-300"></div>
+                
+                <!-- 1. Explicit PNT Demo (Number Theory) -->
+                <div class="relative pl-6 md:pl-8 mb-4">
+                    <div class="absolute top-6 left-0 w-6 md:w-8 h-px bg-stone-300"></div> <!-- Horizontal Connector -->
+                    <a href="https://ghostdrifttheory.github.io/explicit-pnt-safe-profile-demo-JP/" target="_blank" class="block bg-stone-50/80 backdrop-blur-sm border border-stone-200 p-5 md:p-6 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden transition-colors hover:bg-white hover:border-ai/30">
+                        <!-- Subtle math background -->
+                        <div class="absolute inset-0 opacity-[0.03] pointer-events-none overflow-hidden text-sumi font-serif text-3xl md:text-4xl whitespace-nowrap select-none flex items-center justify-center">
+                            $\psi(x) = x - \sum_{\rho} \frac{x^\rho}{\rho} - \ln(2\pi)$
+                        </div>
+                        
+                        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-[9px] font-bold text-stone-400 tracking-widest uppercase border border-stone-300 px-1.5 py-0.5 rounded-sm bg-white/50">For Mathematicians</span>
+                                    <h3 class="text-base md:text-lg font-bold text-sumi font-serif">Explicit PNT Safe Profile</h3>
+                                </div>
+                                <p class="text-xs md:text-sm text-stone-500 font-serif leading-relaxed max-w-2xl jp-typeset">
+                                    解析的整数論の厳密な視点から、素数定理（PNT）と明示公式の誤差項挙動を検証する数理プロファイラ。
+                                    有限の安全域がいかに数学的に保証されるかを確認するための詳細デモです。
+                                </p>
                             </div>
-                            <p class="text-xs md:text-sm text-stone-500 font-serif leading-relaxed max-w-2xl jp-typeset">
-                                解析的整数論の厳密な視点から、素数定理（PNT）と明示公式の誤差項挙動を検証する数理プロファイラ。
-                                有限の安全域がいかに数学的に保証されるかを確認するための詳細デモです。
-                            </p>
+                            <div class="flex-shrink-0 text-right self-end md:self-center">
+                                <span class="text-xs font-serif text-ai border-b border-ai/20 group-hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
+                                    Verify PNT <i class="fa-solid fa-square-root-variable text-[10px]"></i>
+                                </span>
+                            </div>
                         </div>
-                        <div class="flex-shrink-0 text-right self-end md:self-center">
-                            <span class="text-xs font-serif text-ai border-b border-ai/20 group-hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
-                                Verify Logic <i class="fa-solid fa-square-root-variable text-[10px]"></i>
-                            </span>
+                    </a>
+                </div>
+
+                <!-- 2. ADIC Core Demo (System Logic) -->
+                <div class="relative pl-6 md:pl-8">
+                    <div class="absolute top-6 left-0 w-6 md:w-8 h-px bg-stone-300"></div> <!-- Horizontal Connector -->
+                    <a href="https://ghostdrifttheory.github.io/adic-core-JP/" target="_blank" class="block bg-stone-50/80 backdrop-blur-sm border border-stone-200 p-5 md:p-6 shadow-sm rounded-sm card-hover group cursor-pointer relative overflow-hidden transition-colors hover:bg-white hover:border-ai/30">
+                        <!-- Subtle math background -->
+                        <div class="absolute inset-0 opacity-[0.03] pointer-events-none overflow-hidden text-sumi font-serif text-3xl md:text-4xl whitespace-nowrap select-none flex items-center justify-center">
+                            $\mathcal{L}_{adic} : \mathcal{U} \to \mathcal{F}_{closed}$
                         </div>
-                    </div>
-                </a>
+                        
+                        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-[9px] font-bold text-stone-400 tracking-widest uppercase border border-stone-300 px-1.5 py-0.5 rounded-sm bg-white/50">For Mathematicians</span>
+                                    <h3 class="text-base md:text-lg font-bold text-sumi font-serif">ADIC Core Logic</h3>
+                                </div>
+                                <p class="text-xs md:text-sm text-stone-500 font-serif leading-relaxed max-w-2xl jp-typeset">
+                                    ADIC（Augmented Discrete Interface Controller）の数理基盤デモ。
+                                    有限閉包と厳密な論理制御がいかにして「計算の爆発」を防ぎ、システムを安全に閉じるかを示す理論実証モデルです。
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0 text-right self-end md:self-center">
+                                <span class="text-xs font-serif text-ai border-b border-ai/20 group-hover:border-ai pb-0.5 transition-all inline-flex items-center gap-1">
+                                    Verify Logic <i class="fa-solid fa-code-branch text-[10px]"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -644,11 +679,11 @@
         <!-- 5. Philosophical Foundation (INTEGRATED) -->
         <section id="philosophy" class="pb-12 md:pb-20 scroll-mt-20">
             <div class="relative bg-ai text-washi p-5 md:p-14 overflow-hidden rounded-sm shadow-lg">
-                <!-- Decorative Circles -->
+                <!-- Decorative Circles (Adjusted for mobile to prevent overlap) -->
                 <div class="absolute -right-20 -bottom-20 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none"></div>
                 <div class="absolute -right-10 -bottom-10 w-48 h-48 md:w-80 md:h-80 border border-white/5 rounded-full pointer-events-none"></div>
                 
-                <!-- 1. Philosophy Header -->
+                <!-- 1. Philosophy Header (Sharpened Text) -->
                 <div class="relative z-10 mb-8 md:mb-10">
                     <span class="text-kin text-xs tracking-[0.2em] uppercase block opacity-80 mb-3">Philosophical Foundation</span>
                     <h2 class="text-2xl md:text-4xl font-serif font-bold leading-tight mb-4 md:mb-6">
@@ -661,7 +696,7 @@
                     </p>
                 </div>
 
-                <!-- 2. Integrated Safety Shell Demo -->
+                <!-- 2. Integrated Safety Shell Demo (Mobile Optimized) -->
                 <div class="relative z-10 mb-8 md:mb-12">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="text-[10px] font-mono text-[#48e0c2] border border-[#48e0c2]/30 px-2 py-0.5 rounded bg-[#48e0c2]/10 uppercase tracking-wider">Architecture Proof</span>
@@ -770,7 +805,7 @@
                     </button>
                 </div>
 
-                <!-- Circular Logo -->
+                <!-- Circular Logo (Positioned safely) -->
                 <div class="absolute top-6 right-6 w-16 h-16 md:bottom-8 md:right-12 md:top-auto md:w-32 md:h-32 border border-white/10 rounded-full flex items-center justify-center pointer-events-none opacity-30 md:opacity-50">
                     <div class="absolute inset-0 border border-white/5 rounded-full animate-[pulse_4s_infinite]"></div>
                     <span class="font-serif text-sm md:text-xl text-kin writing-vertical select-none">円理</span>
@@ -801,7 +836,7 @@
         </div>
     </footer>
 
-    <!-- WASAN MODAL (The Deep Layer) -->
+    <!-- WASAN MODAL (The Deep Layer - Refined) -->
     <div id="wasan-modal">
         <div class="modal-controls">
             <button onclick="closeWasanModal()" class="modal-close-btn">
